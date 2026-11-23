@@ -1,0 +1,14 @@
+# System & OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node / Dependencies
+node_modules/
+
+# Temporary / Scratch
+.cache/
+tmp/
