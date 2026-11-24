@@ -1,0 +1,41 @@
+[
+  {
+    "id": "JOY-INQ-2026-1232",
+    "createdAt": "2026-11-24T21:03:28.224Z",
+    "fullName": "Charlotte Dupont",
+    "email": "charlotte@residence.com",
+    "phone": "+1 (555) 789-0123",
+    "subject": "Outdoor & Patio Living",
+    "message": "Requesting specifications and lead times for the Solstice Patio Sectional in mustard gold.",
+    "sampleKit": true,
+    "status": "Pending Concierge Review",
+    "items": [
+      {
+        "id": "solstice-patio",
+        "title": "Solstice Patio Sectional",
+        "priceStr": "$3,650"
+      }
+    ]
+  },
+  {
+    "id": "JOY-INQ-2026-001",
+    "createdAt": "2026-11-23T14:20:00.000Z",
+    "fullName": "Eleanor Vance",
+    "email": "eleanor@vance-residence.com",
+    "phone": "+1 (555) 234-5678",
+    "subject": "Living Room Collection",
+    "message": "Furnishing an expansive open-plan living room in the Hudson Valley. Interested in the Aurelia Modular Sectional in warm ivory and a custom white oak dining table.",
+    "sampleKit": true,
+    "status": "In Review",
+    "assignedConcierge": "Sarah L., Senior Studio Director",
+    "items": [
+      {
+        "id": "aurelia-sectional",
+        "title": "Aurelia Modular Sectional",
+        "finish": "Warm Ivory Bouclé",
+        "quantity": 1,
+        "priceStr": "$4,850"
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "name": "joy-luxury-furniture",
+  "version": "1.0.0",
+  "description": "JOY Luxury Indoor & Outdoor Furniture WebApp and Serverless Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "luxury-furniture",
+    "webapp",
+    "pwa",
+    "serverless-api",
+    "vercel"
+  ],
+  "author": "JOY Luxury Furniture Studio",
+  "license": "UNLICENSED"
+}

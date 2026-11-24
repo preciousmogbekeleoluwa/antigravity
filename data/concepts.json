@@ -1,0 +1,49 @@
+[
+  {
+    "id": "JOY-CONCEPT-7555",
+    "createdAt": "2026-11-24T21:03:28.244Z",
+    "roomPreset": "living",
+    "roomName": "Modern Living Sanctuary",
+    "totalEstimate": 8770,
+    "clientNote": "",
+    "placedItems": [
+      {
+        "productId": "aurelia-sectional",
+        "title": "Aurelia Sectional",
+        "x": 40,
+        "y": 50,
+        "priceStr": "$4,850"
+      },
+      {
+        "productId": "komorebi-dining",
+        "title": "Komorebi Dining Table",
+        "x": 70,
+        "y": 30,
+        "priceStr": "$3,920"
+      }
+    ]
+  },
+  {
+    "id": "JOY-CONCEPT-7821",
+    "createdAt": "2026-11-23T15:00:00.000Z",
+    "roomPreset": "patio",
+    "roomName": "Sunlit Outdoor Patio",
+    "totalEstimate": 6540,
+    "placedItems": [
+      {
+        "productId": "solstice-patio",
+        "title": "Solstice Patio Sectional",
+        "x": 38,
+        "y": 45,
+        "priceStr": "$3,650"
+      },
+      {
+        "productId": "verona-daybed",
+        "title": "Verona Double Daybed",
+        "x": 65,
+        "y": 32,
+        "priceStr": "$2,890"
+      }
+    ]
+  }
+]

@@ -1,0 +1,223 @@
+[
+  {
+    "id": "aurelia-sectional",
+    "title": "Aurelia Modular Sectional",
+    "category": "living",
+    "categoryLabel": "Living Room",
+    "material": "boucle",
+    "materialLabel": "Italian Bouclé & Beech",
+    "status": "custom",
+    "statusLabel": "Atelier Commission",
+    "priceNum": 4850,
+    "priceStr": "$4,850",
+    "dimensions": "124\"W x 86\"D x 31\"H (Modular Configuration)",
+    "leadTime": "3–5 Weeks",
+    "inStockQty": 2,
+    "featured": true,
+    "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=85",
+    "description": "Generously proportioned modular sofa featuring deep channel cushioning and tactile Italian bouclé upholstery.",
+    "specifications": {
+      "frame": "Kiln-dried solid FSC-certified beech wood with corner-blocked joinery",
+      "cushionCore": "Multi-density polyfoam wrapped in hypoallergenic down-feather blend",
+      "care": "Professional dry clean or spot-treat with mild water-free solvent",
+      "customOptions": "Available in custom lengths and L/U modular combinations"
+    },
+    "swatches": [
+      { "name": "Warm Ivory Bouclé", "class": "swatch-ivory", "hex": "#F3EFE7" },
+      { "name": "Sand Beige Weave", "class": "swatch-sand", "hex": "#D6C5AD" },
+      { "name": "Muted Sage Velvet", "class": "swatch-sage", "hex": "#A9A58B" }
+    ]
+  },
+  {
+    "id": "solstice-patio",
+    "title": "Solstice Patio Sectional",
+    "category": "outdoor",
+    "categoryLabel": "Outdoor & Patio",
+    "material": "wicker",
+    "materialLabel": "All-Weather Wicker & Teak",
+    "status": "in-stock",
+    "statusLabel": "Ready to Ship",
+    "priceNum": 3650,
+    "priceStr": "$3,650",
+    "dimensions": "98\"W x 42\"D x 28\"H + Ottoman",
+    "leadTime": "1–2 Weeks",
+    "inStockQty": 5,
+    "featured": true,
+    "image": "assets/images/hero-outdoor-reference.webp",
+    "description": "Handwoven all-weather synthetic wicker lounge with plush quick-dry cushions in soft mustard gold and sand beige.",
+    "specifications": {
+      "frame": "Powder-coated aerospace aluminum with handwoven UV-resistant PE resin wicker",
+      "cushionCore": "QuickDry® reticulated open-cell foam engineered for rapid water expulsion",
+      "textiles": "100% solution-dyed acrylic (Sunbrella®) with stain and mildew resistance",
+      "customOptions": "Matching woven storage ottoman and side tables included"
+    },
+    "swatches": [
+      { "name": "Soft Mustard Gold", "class": "swatch-gold", "hex": "#D5AA54" },
+      { "name": "Warm Ivory Sunbrella", "class": "swatch-ivory", "hex": "#F3EFE7" },
+      { "name": "Deep Charcoal Weave", "class": "swatch-charcoal", "hex": "#343630" }
+    ]
+  },
+  {
+    "id": "komorebi-dining",
+    "title": "Komorebi Dining Table",
+    "category": "dining",
+    "categoryLabel": "Dining Room",
+    "material": "oak",
+    "materialLabel": "Solid French White Oak",
+    "status": "custom",
+    "statusLabel": "Atelier Commission",
+    "priceNum": 3920,
+    "priceStr": "$3,920",
+    "dimensions": "106\"L x 42\"W x 30\"H (Seats 8–10)",
+    "leadTime": "4–6 Weeks",
+    "inStockQty": 1,
+    "featured": true,
+    "image": "https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=800&q=85",
+    "description": "Solid white oak dining table defined by softened pill-shaped radius edges and monumental cylindrical timber legs.",
+    "specifications": {
+      "frame": "FSC-certified French white oak with precision concealed steel tie-rod stabilization",
+      "finish": "Low-sheen organic satin oil with food-safe botanical seal",
+      "customOptions": "Available in lengths from 84\" to 144\" and round configurations"
+    },
+    "swatches": [
+      { "name": "Natural Sand Oak", "class": "swatch-sand", "hex": "#D6C5AD" },
+      { "name": "Smoked Charcoal Oak", "class": "swatch-charcoal", "hex": "#343630" }
+    ]
+  },
+  {
+    "id": "verona-daybed",
+    "title": "Verona Double Daybed",
+    "category": "outdoor",
+    "categoryLabel": "Outdoor & Patio",
+    "material": "teak",
+    "materialLabel": "Grade-A Sustainable Teak",
+    "status": "in-stock",
+    "statusLabel": "Ready to Ship",
+    "priceNum": 2890,
+    "priceStr": "$2,890",
+    "dimensions": "82\"L x 68\"W x 18\"H",
+    "leadTime": "2–3 Weeks",
+    "inStockQty": 4,
+    "featured": true,
+    "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=85",
+    "description": "Generous double-width lounger handcrafted from seasoned teak with multi-position reclining headrests.",
+    "specifications": {
+      "frame": "Grade-A kiln-dried plantation teak with marine 316 stainless steel fittings",
+      "cushionCore": "High-resilience reticulated foam with breathable mesh base",
+      "customOptions": "Integrated teak wheels and pull-out drink tray"
+    },
+    "swatches": [
+      { "name": "Mineral Sand", "class": "swatch-sand", "hex": "#D6C5AD" },
+      { "name": "Ivory Sunbrella", "class": "swatch-ivory", "hex": "#F3EFE7" }
+    ]
+  },
+  {
+    "id": "paloma-armchair",
+    "title": "Paloma Woven Armchair",
+    "category": "living",
+    "categoryLabel": "Living Room",
+    "material": "oak",
+    "materialLabel": "Sculpted Ash & Danish Cord",
+    "status": "in-stock",
+    "statusLabel": "Ready to Ship",
+    "priceNum": 1450,
+    "priceStr": "$1,450",
+    "dimensions": "36\"W x 38\"D x 30\"H",
+    "leadTime": "1–2 Weeks",
+    "inStockQty": 6,
+    "featured": false,
+    "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=85",
+    "description": "Sculptural accent armchair pairing ergonomic ash woodwork with organic corded weave and plush cushion.",
+    "specifications": {
+      "frame": "Steam-bent natural ash wood frame with hand-strung 3-ply Danish paper cord",
+      "cushion": "High-density polyurethane foam with feather topper",
+      "customOptions": "Custom cord hues and leather cushion options on request"
+    },
+    "swatches": [
+      { "name": "Muted Sage", "class": "swatch-sage", "hex": "#A9A58B" },
+      { "name": "Warm Ivory", "class": "swatch-ivory", "hex": "#F3EFE7" },
+      { "name": "Mustard Velvet", "class": "swatch-gold", "hex": "#D5AA54" }
+    ]
+  },
+  {
+    "id": "seraphina-bed",
+    "title": "Seraphina Low Plinth Bed",
+    "category": "bedroom",
+    "categoryLabel": "Bedroom Suite",
+    "material": "boucle",
+    "materialLabel": "Oak Core & Sand Chenille",
+    "status": "custom",
+    "statusLabel": "Atelier Commission",
+    "priceNum": 3280,
+    "priceStr": "$3,280",
+    "dimensions": "King: 84\"W x 92\"L x 48\"H",
+    "leadTime": "4–5 Weeks",
+    "inStockQty": 2,
+    "featured": false,
+    "image": "https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=85",
+    "description": "Floating low-profile platform bed with wrapping upholstered wing headboard and concealed floating plinth.",
+    "specifications": {
+      "frame": "Engineered hardwood and solid oak core with reinforced steel center rail",
+      "upholstery": "High-performance textured chenille with stain-repellent nano-coating",
+      "customOptions": "Available in Queen, King, and California King with optional under-bed ledges"
+    },
+    "swatches": [
+      { "name": "Sand Chenille", "class": "swatch-sand", "hex": "#D6C5AD" },
+      { "name": "Warm Ivory Weave", "class": "swatch-ivory", "hex": "#F3EFE7" }
+    ]
+  },
+  {
+    "id": "travertine-credenza",
+    "title": "Meridian Travertine Table",
+    "category": "living",
+    "categoryLabel": "Living Room",
+    "material": "travertine",
+    "materialLabel": "Honed Roman Travertine",
+    "status": "custom",
+    "statusLabel": "Atelier Commission",
+    "priceNum": 2450,
+    "priceStr": "$2,450",
+    "dimensions": "54\"L x 32\"W x 14\"H",
+    "leadTime": "3–4 Weeks",
+    "inStockQty": 2,
+    "featured": false,
+    "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=85",
+    "description": "Low monolithic cocktail table crafted from unfilled honed Italian travertine with soft bullnose edging.",
+    "specifications": {
+      "material": "Monolithic slab of Italian Tivoli travertine, honed and matte-sealed",
+      "weight": "210 lbs with protective felt floor glides",
+      "customOptions": "Custom slab selection and dimensions available upon inquiry"
+    },
+    "swatches": [
+      { "name": "Warm Roman Travertine", "class": "swatch-sand", "hex": "#D6C5AD" },
+      { "name": "Charcoal Basalt", "class": "swatch-charcoal", "hex": "#343630" }
+    ]
+  },
+  {
+    "id": "solarium-patio-bistro",
+    "title": "Solarium Bistro Set",
+    "category": "outdoor",
+    "categoryLabel": "Outdoor & Patio",
+    "material": "wicker",
+    "materialLabel": "Aluminum & Synthetic Cord",
+    "status": "in-stock",
+    "statusLabel": "Ready to Ship",
+    "priceNum": 1680,
+    "priceStr": "$1,680",
+    "dimensions": "Table: 36\" Dia x 29\"H + 2 Armchairs",
+    "leadTime": "1–2 Weeks",
+    "inStockQty": 8,
+    "featured": false,
+    "image": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=85",
+    "description": "Intimate terrace dining trio combining slender dark aluminum architecture with woven all-weather backing.",
+    "specifications": {
+      "construction": "Electrostatically powder-coated extruded aluminum with UV-stabilized poly cord",
+      "weightCapacity": "Table: 150 lbs, Chairs: 350 lbs each",
+      "customOptions": "Available in matte sage and sand cord colorways"
+    },
+    "swatches": [
+      { "name": "Muted Sage Cord", "class": "swatch-sage", "hex": "#A9A58B" },
+      { "name": "Sand Beige Cord", "class": "swatch-sand", "hex": "#D6C5AD" }
+    ]
+  }
+]

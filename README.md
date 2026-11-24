@@ -1,6 +1,6 @@
-# JOY — Luxury Indoor & Outdoor Furniture
+# JOY — Luxury Indoor & Outdoor Furniture WebApp & Backend
 
-A premium, sophisticated, fully responsive four-page website for **JOY**, specializing in luxury indoor and outdoor furniture.
+A premium, sophisticated, fully responsive web application and serverless backend for **JOY**, specializing in luxury indoor and outdoor furniture.
 
 ---
 
@@ -18,59 +18,69 @@ The visual identity is inspired by quiet international luxury, organic architect
 
 ---
 
-## 📄 Website Structure
+## 📱 WebApp Features
 
-1. **Home (`index.html`)**:
-   - **Slider Revolution-Style Hero Slider**: Full-screen cinematic experience with Ken Burns slow zoom, staggered layer typography entrance, countdown progress bar, numeric counter (`01 / 04`), and pause-on-hover.
-   - **Featured Collections**: Living Room, Bedroom, Dining, Outdoor, and Lounge & Patio.
-   - **About JOY Preview**: Split editorial narrative highlighting 25+ years of craftsmanship.
-   - **Why Choose JOY**: 4 hallmark pillars (Exceptional Quality, Timeless Designs, Comfort & Functionality, Indoor & Outdoor Living).
-   - **Featured Furniture Showcase**: Filterable product catalog with sample guide pricing, Quick View specification modal, and direct WhatsApp inquiry links.
-   - **Final Call to Action Banner**: Architectural full-width banner.
+1. **Catalog & Multi-Facet Filter Studio (`catalog.html`)**:
+   - Real-time keyword search across names, categories, materials, and descriptions.
+   - Faceted filters for room category, raw materiality, and production status (In-Stock vs. Atelier Commission).
+   - Dynamic view mode switcher: 3-column Studio Grid vs. 2-column Editorial Spread.
+   - Interactive finish swatch color circles that visually switch finishes on each piece.
+   - Sorting by price, featured atelier, and alphabetical order.
 
-2. **About Us (`about.html`)**:
-   - The Genesis of JOY and our brand storytelling.
-   - Our Mission & Vision.
-   - Core Values: Uncompromising Materiality, Architectural Proportion, Conscious Longevity, and Tailored Experience.
-   - The Continuity of Indoor & Outdoor Living philosophy.
-   - Craftsmanship editorial gallery.
+2. **3D Room Studio & Spatial Visualizer (`studio.html`)**:
+   - Visual spatial canvas with ambient templates (*Sunlit Patio*, *Living Sanctuary*, *Penthouse Dining*).
+   - Interactive drag-and-drop piece placement to test architectural flow.
+   - Real-time placed piece counter and estimated total investment calculator.
+   - One-click room concept dispatch to WhatsApp.
 
-3. **Our Services (`services.html`)**:
-   - **Indoor Furniture**: Living room sectionals, floating platform beds, monumental dining tables, turnkey home furnishing solutions.
-   - **Outdoor Furniture**: All-weather patio wicker sets, Grade-A teak garden collections, poolside double daybeds, terrace and balcony arrangements.
-   - **Additional Bespoke Services**: One-on-one furniture consultations, custom atelier sizing and finish commissions, and 3D space styling guidance.
+3. **Global Curated Collection / Wishlist Drawer**:
+   - Persisted across sessions via `localStorage`.
+   - Quantity adjustment, finish selection, and subtotal calculation.
+   - One-click itemized WhatsApp quotation generator.
 
-4. **Contact Us (`contact.html`)**:
-   - Flagship studio address and showroom visiting hours.
-   - Telephone concierge and electronic correspondence channels.
-   - Instant WhatsApp mobile line integration.
-   - Fully validated interactive inquiry form with loading spinner and personalized confirmation toast.
-   - Showroom preview experience and interactive FAQ accordion.
+4. **Progressive Web App (PWA)**:
+   - Web App Manifest (`manifest.json`) and Service Worker (`sw.js`) for offline caching and fast load.
+   - Mobile app bottom navigation bar and home screen install banner.
 
 ---
 
-## 🚀 Running the Project Locally
+## ⚙️ Backend Architecture & Serverless API
 
-No external build tools or installations are required.
+The backend is built with native Node.js and zero external dependencies, running both locally on `server.js` and in production as Vercel Serverless Functions in `/api/`.
 
-To run the built-in server:
+### API Endpoints:
+
+| Endpoint | Method | Description |
+| :--- | :--- | :--- |
+| `/api/products` | `GET` | Query catalog products with filters (`category`, `material`, `status`, `search`, `sort`, `limit`). |
+| `/api/products?id=<id>` | `GET` | Retrieve single product with full specifications, frame joinery, and care guides. |
+| `/api/inquiries` | `POST` | Validates and logs client inquiries/bespoke quotes; returns reference code `JOY-INQ-YYYY-XXXX`. |
+| `/api/inquiries` | `GET` | Concierge listing of recent client inquiries. |
+| `/api/concepts` | `POST` | Saves spatial room layouts created on the 3D Studio canvas; returns `JOY-CONCEPT-XXXX`. |
+| `/api/concepts?id=<id>` | `GET` | Retrieves a saved room concept for client or designer review. |
+| `/api/concierge` | `POST` | Semantic design advisor endpoint that processes natural language requests and returns matching catalog pieces and styling notes. |
+
+---
+
+## 🚀 Running Locally
+
 ```bash
-node server.js
+npm start
+# or: node server.js
 ```
 
-Then open your browser to:
+Open your browser to:
 ```
 http://localhost:3000
 ```
 
 ---
 
-## 🛠️ Technology Stack
+## 🌐 Production Deployment (Vercel)
 
-- **HTML5**: Semantic, accessible markup with meta tags and ARIA support.
-- **CSS3**: Custom design system, CSS variables, fluid clamp typography, Ken Burns keyframes, responsive grid/flexbox layouts.
-- **JavaScript (ES6+)**: Custom cinematic slider engine, touch gesture support, mobile navigation drawer, interactive specifications modal, and real-time form validation.
-- **Typography**: Google Fonts (*Cormorant Garamond* & *Plus Jakarta Sans*).
+The backend and frontend are configured for automatic deployment on Vercel:
+- **Repository**: `https://github.com/preciousmogbekeleoluwa/antigravity`
+- **Live URL**: `https://antigravity-sigma-liard.vercel.app/`
 
 ---
 

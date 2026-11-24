@@ -5,6 +5,12 @@ const path = require('path');
 const PORT = 3000;
 const ROOT = path.join(__dirname);
 
+// API Handlers
+const apiProducts = require('./api/products');
+const apiInquiries = require('./api/inquiries');
+const apiConcepts = require('./api/concepts');
+const apiConcierge = require('./api/concierge');
+
 const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
   '.css': 'text/css; charset=UTF-8',
@@ -18,8 +24,65 @@ const MIME_TYPES = {
   '.ico': 'image/x-icon'
 };
 
+// Helper to decorate res with Vercel/Express-like helpers
+function decorateResponse(res) {
+  res.status = function(code) {
+    this.statusCode = code;
+    return this;
+  };
+  res.json = function(data) {
+    this.setHeader('Content-Type', 'application/json');
+    this.end(JSON.stringify(data));
+    return this;
+  };
+  res.send = function(data) {
+    this.end(data);
+    return this;
+  };
+}
+
 const server = http.createServer((req, res) => {
-  let reqPath = decodeURI(req.url.split('?')[0]);
+  decorateResponse(res);
+
+  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  const pathname = parsedUrl.pathname;
+
+  // 1. ROUTE API CALLS (/api/*)
+  if (pathname.startsWith('/api/')) {
+    let bodyData = '';
+    req.on('data', chunk => {
+      bodyData += chunk;
+    });
+
+    req.on('end', () => {
+      if (bodyData) {
+        try {
+          req.body = JSON.parse(bodyData);
+        } catch (e) {
+          req.body = {};
+        }
+      } else {
+        req.body = {};
+      }
+
+      if (pathname === '/api/products') {
+        return apiProducts(req, res);
+      } else if (pathname === '/api/inquiries') {
+        return apiInquiries(req, res);
+      } else if (pathname === '/api/concepts') {
+        return apiConcepts(req, res);
+      } else if (pathname === '/api/concierge') {
+        return apiConcierge(req, res);
+      } else {
+        return res.status(404).json({ error: 'API Endpoint Not Found', path: pathname });
+      }
+    });
+
+    return;
+  }
+
+  // 2. SERVE STATIC FILES
+  let reqPath = decodeURI(pathname);
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
 
   const filePath = path.join(ROOT, reqPath);
@@ -47,5 +110,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '127.0.0.1', () => {
-  console.log(`JOY Luxury Furniture server running at http://localhost:${PORT}`);
+  console.log(`JOY Luxury Furniture WebApp & API Server running at http://localhost:${PORT}`);
 });

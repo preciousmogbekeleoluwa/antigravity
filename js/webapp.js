@@ -428,6 +428,19 @@ class JoyCatalogApp {
 
     this.initControls();
     this.render();
+    this.fetchRemoteProducts();
+  }
+
+  fetchRemoteProducts() {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(result => {
+        if (result && Array.isArray(result.data) && result.data.length > 0) {
+          this.products = result.data;
+          this.render();
+        }
+      })
+      .catch(() => {});
   }
 
   initControls() {
@@ -937,38 +950,67 @@ class JoyConciergeWidget {
     const body = this.modal.querySelector('.concierge-body');
     if (!body) return;
 
-    let responseHtml = '';
+    let userLabel = '';
+    let queryPayload = '';
     if (key === 'outdoor') {
-      responseHtml = `
-        <div class="concierge-msg user">Recommend an outdoor patio set</div>
-        <div class="concierge-msg bot">
-          For open-air patios and courtyards, our <strong>Solstice Patio Sectional</strong> ($3,650) paired with the <strong>Verona Teak Daybed</strong> ($2,890) provides weather-proof synthetic wicker, QuickDry foam, and warm mustard gold cushions.
-          <br><br>
-          <a href="catalog.html" class="link-editorial" style="font-size:0.75rem;">View Outdoor Catalog &rarr;</a>
-        </div>
-      `;
+      userLabel = 'Recommend an outdoor patio set';
+      queryPayload = 'outdoor patio furniture';
     } else if (key === 'living') {
-      responseHtml = `
-        <div class="concierge-msg user">Living room sectional recommendation</div>
-        <div class="concierge-msg bot">
-          The <strong>Aurelia Modular Sectional</strong> ($4,850) is our signature indoor piece. Featuring channel-cushioned Italian bouclé and down-blend seating, it can be configured to any residential footprint.
-          <br><br>
-          <button class="btn btn-gold btn-sm" onclick="window.joyWishlist.add(JOY_CATALOG[0]); window.joyWishlist.openDrawer();">+ Add to Curated List</button>
-        </div>
-      `;
+      userLabel = 'Living room modular sectional recommendation';
+      queryPayload = 'living room modular sofa';
     } else if (key === 'samples') {
-      responseHtml = `
-        <div class="concierge-msg user">Request fabric & timber samples</div>
-        <div class="concierge-msg bot">
-          Our private studio dispatches complimentary material sample boxes containing Italian bouclé, Sunbrella acrylics, French oak blocks, and honed travertine.
-          <br><br>
-          <a href="contact.html" class="btn btn-outline btn-sm">Request Sample Box</a>
-        </div>
-      `;
+      userLabel = 'Request fabric & timber samples';
+      queryPayload = 'fabric samples';
     }
 
-    body.insertAdjacentHTML('beforeend', responseHtml);
+    body.insertAdjacentHTML('beforeend', `<div class="concierge-msg user">${userLabel}</div>`);
+    body.insertAdjacentHTML('beforeend', `
+      <div class="concierge-msg bot js-concierge-thinking" style="color:var(--color-warm-taupe);">
+        Consulting JOY Studio Atelier...
+      </div>
+    `);
     body.scrollTop = body.scrollHeight;
+
+    // Call Backend API: POST /api/concierge
+    fetch('/api/concierge', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: queryPayload })
+    })
+    .then(res => res.json())
+    .then(data => {
+      body.querySelector('.js-concierge-thinking')?.remove();
+      let suggestionsHtml = '';
+      if (data.suggestedProducts && data.suggestedProducts.length > 0) {
+        suggestionsHtml = `
+          <div style="margin-top:0.75rem; display:flex; flex-direction:column; gap:0.4rem;">
+            ${data.suggestedProducts.slice(0, 2).map(sp => `
+              <div style="padding:0.45rem 0.65rem; background:rgba(214,197,173,0.25); border-radius:2px; font-size:0.78rem; display:flex; justify-content:space-between; align-items:center;">
+                <span><strong>${sp.title}</strong> (${sp.priceStr})</span>
+                <a href="catalog.html" class="link-editorial" style="font-size:0.7rem;">View</a>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      body.insertAdjacentHTML('beforeend', `
+        <div class="concierge-msg bot">
+          ${data.reply}
+          ${suggestionsHtml}
+        </div>
+      `);
+      body.scrollTop = body.scrollHeight;
+    })
+    .catch(() => {
+      body.querySelector('.js-concierge-thinking')?.remove();
+      body.insertAdjacentHTML('beforeend', `
+        <div class="concierge-msg bot">
+          Our studio curators specialize in tailored living and outdoor sanctuaries. You may explore our interactive catalog or speak with a concierge on WhatsApp.
+        </div>
+      `);
+      body.scrollTop = body.scrollHeight;
+    });
   }
 }
 

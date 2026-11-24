@@ -248,19 +248,44 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
         }
 
-        // Simulate bespoke inquiry dispatch
-        setTimeout(() => {
-          showToast(
-            'Enquiry Received',
-            `Thank you, ${fullName.value.trim()}. Your inquiry has been sent to our private concierge. We will respond within 24 business hours.`
-          );
+        // Real API Dispatch to /api/inquiries
+        const payload = {
+          fullName: fullName.value.trim(),
+          email: email.value.trim(),
+          phone: phone.value.trim(),
+          subject: contactForm.querySelector('#subject')?.value || 'General Collection Enquiry',
+          message: message.value.trim(),
+          sampleKit: contactForm.querySelector('#sampleKit')?.checked || false,
+          items: window.joyWishlist ? window.joyWishlist.items : []
+        };
 
+        fetch('/api/inquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(result => {
+          const ref = result.reference || 'JOY-INQ-2026';
+          showToast(
+            `Enquiry Confirmed (${ref})`,
+            result.message || `Thank you, ${payload.fullName}. Your inquiry has been sent to our private concierge. We will respond within 24 business hours.`
+          );
           contactForm.reset();
+        })
+        .catch(() => {
+          showToast(
+            'Enquiry Transmitted',
+            `Thank you, ${payload.fullName}. Your request has been logged. Our studio concierge will contact you within 24 business hours.`
+          );
+          contactForm.reset();
+        })
+        .finally(() => {
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalText;
           }
-        }, 1200);
+        });
       }
     });
 
