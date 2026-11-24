@@ -6,16 +6,19 @@
   <meta name="description" content="About JOY Luxury Furniture — Discover our story, architectural vision, master craftsmanship, and philosophy of harmonizing indoor and outdoor living spaces.">
   <title>About Us — JOY Luxury Indoor & Outdoor Furniture</title>
 
-  <!-- Favicon Icon -->
+  <!-- PWA Manifest & Favicon -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#343630">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23343630'/><text x='50%' y='62%' font-family='serif' font-size='56' font-weight='600' fill='%23D5AA54' text-anchor='middle'>J</text></svg>">
 
-  <!-- Core Styles -->
+  <!-- Core & WebApp Styles -->
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/webapp.css">
 </head>
 <body>
 
   <!-- ==========================================================================
-       HEADER & NAVIGATION BAR (SOLID ON INNER PAGES)
+       HEADER & NAVIGATION BAR
        ========================================================================== -->
   <header class="site-header solid-header" role="banner">
     <div class="container">
@@ -26,13 +29,24 @@
 
       <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
         <a href="index.html" class="nav-link">Home</a>
+        <a href="catalog.html" class="nav-link">Catalog Studio</a>
+        <a href="studio.html" class="nav-link">Room Planner</a>
         <a href="about.html" class="nav-link active">About Us</a>
-        <a href="services.html" class="nav-link">Our Services</a>
-        <a href="contact.html" class="nav-link">Contact Us</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="contact.html" class="nav-link">Contact</a>
       </nav>
 
-      <div class="nav-action">
-        <a href="services.html" class="btn btn-gold btn-sm">Explore Collection</a>
+      <div class="nav-action nav-app-actions">
+        <!-- Wishlist / Bag Icon Trigger -->
+        <button class="wishlist-toggle-btn js-open-wishlist" aria-label="Open Curated Collection" title="Curated Collection">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span class="wishlist-badge-count" style="display:none;">0</span>
+        </button>
+
+        <a href="catalog.html" class="btn btn-gold btn-sm">Explore Collection</a>
+
         <button class="nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
           <span></span>
           <span></span>
@@ -46,16 +60,14 @@
   <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <nav class="mobile-nav-links">
       <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="catalog.html" class="mobile-nav-link">Catalog Studio</a>
+      <a href="studio.html" class="mobile-nav-link">Room Planner</a>
       <a href="about.html" class="mobile-nav-link active">About Us</a>
-      <a href="services.html" class="mobile-nav-link">Our Services</a>
-      <a href="contact.html" class="mobile-nav-link">Contact Us</a>
+      <a href="services.html" class="mobile-nav-link">Services</a>
+      <a href="contact.html" class="mobile-nav-link">Contact</a>
     </nav>
     <div class="mobile-nav-contact">
-      <a href="services.html" class="btn btn-gold">Explore Collection</a>
-      <p>Luxury Indoor & Outdoor Furniture</p>
-      <a href="https://wa.me/18005694663?text=Hello%20JOY%20Concierge,%20I%20would%20like%20to%20learn%20more%20about%20your%20story." class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
-        WhatsApp Concierge
-      </a>
+      <button class="btn btn-gold js-open-wishlist" style="width:100%;">View Curated Collection</button>
     </div>
   </div>
 
@@ -125,27 +137,19 @@
       </div>
 
       <div class="mission-vision-grid">
-        <!-- Mission -->
         <div class="mission-card">
           <span class="eyebrow">Our Mission</span>
           <h3>To Elevate Everyday Spaces</h3>
           <p>
             Our mission is to craft heirloom-standard indoor and outdoor furniture that enhances physical comfort, celebrates raw materiality, and enriches human connection. We believe that thoughtfully designed surroundings inspire clarity, creativity, and lasting peace of mind.
           </p>
-          <p style="margin-top: 1rem; color: var(--color-deep-charcoal); font-weight: 500;">
-            We pledge uncompromising standards in ergonomics, non-toxic finishes, and sustainable sourcing.
-          </p>
         </div>
 
-        <!-- Vision -->
         <div class="mission-card">
           <span class="eyebrow">Our Vision</span>
           <h3>The Seamless Modern Sanctuary</h3>
           <p>
             We envision an international standard of luxury where the threshold between interior architecture and nature completely dissolves. A future where homes are celebrated as holistic sanctuaries, furnished with conscious longevity rather than disposable trends.
-          </p>
-          <p style="margin-top: 1rem; color: var(--color-deep-charcoal); font-weight: 500;">
-            Championing slow design, timeless aesthetics, and mindful domestic living across the world.
           </p>
         </div>
       </div>
@@ -198,7 +202,7 @@
     <div class="container">
       <div class="story-grid">
         <div>
-          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1000&q=85" 
+          <img src="https://images.unsplash.com/photo-160058515526-990dced4db0d?auto=format&fit=crop&w=1000&q=85" 
                alt="Detail of finely stitched upholstery and natural wood frame" 
                style="border-radius: var(--radius-sm); box-shadow: var(--shadow-card); width: 100%; height: 500px; object-fit: cover;" 
                loading="lazy">
@@ -217,12 +221,11 @@
             Underneath the serene surface lies state-of-the-art engineering: reticulated quick-dry foams that shed moisture in minutes, solution-dyed yarns that remain colorfast under harsh sun, and hidden marine stainless fittings that defy coastal air.
           </p>
           <div style="margin-top: 2rem;">
-            <a href="services.html" class="btn btn-charcoal">Explore Our Curated Services</a>
+            <a href="catalog.html" class="btn btn-charcoal">Explore Full Catalog</a>
           </div>
         </div>
       </div>
 
-      <!-- Editorial Visual Gallery -->
       <div class="editorial-gallery">
         <div class="gallery-item col-8">
           <img src="https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=1200&q=85" 
@@ -237,27 +240,90 @@
   </section>
 
   <!-- ==========================================================================
-       FINAL CTA BANNER
+       CURATED COLLECTION / WISHLIST SLIDE-OUT DRAWER
        ========================================================================== -->
-  <section class="cta-banner" aria-label="Experience JOY in Person">
-    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=85" 
-         alt="Luxury villa outdoor lounge bathed in evening warm light" 
-         class="cta-banner-bg" loading="lazy">
-    <div class="container">
-      <div class="cta-banner-content">
-        <span class="eyebrow eyebrow-center">Begin Your Journey</span>
-        <h2>Experience the Tactile Luxury of JOY.</h2>
-        <p>Book a private consultation with our design team or explore our tailored indoor and outdoor offerings created for exceptional architectural residences.</p>
-        <div class="cta-button-group">
-          <a href="services.html" class="btn btn-gold btn-lg">View Our Services</a>
-          <a href="contact.html" class="btn btn-outline-light btn-lg">Contact Our Studio</a>
+  <div class="drawer-backdrop" role="dialog" aria-modal="true" aria-label="Curated Collection Drawer">
+    <div class="wishlist-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <h3>Curated Collection</h3>
+          <span>Selected Bespoke Furnishings</span>
+        </div>
+        <button class="drawer-close-btn" aria-label="Close Drawer">&times;</button>
+      </div>
+
+      <div class="drawer-content">
+        <!-- Rendered by JoyWishlist -->
+      </div>
+
+      <div class="drawer-footer">
+        <div class="drawer-subtotal">
+          <span class="drawer-subtotal-label">Guide Estimate:</span>
+          <span class="drawer-subtotal-val">$0</span>
+        </div>
+        <div class="drawer-btn-group">
+          <a href="#" class="btn btn-whatsapp js-wishlist-whatsapp" target="_blank" rel="noopener">
+            Inquire Collection on WhatsApp
+          </a>
+          <a href="contact.html" class="btn btn-outline">Request Studio Quotation</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ==========================================================================
-       FOOTER (SHARED)
+       FLOATING DESIGN CONCIERGE ASSISTANT WIDGET
+       ========================================================================== -->
+  <button class="concierge-widget-btn" aria-label="Open JOY Design Concierge Assistant">
+    <span class="concierge-pulse-dot"></span>
+    <span>JOY Concierge</span>
+  </button>
+
+  <div class="concierge-modal" role="dialog" aria-label="JOY Concierge Assistant">
+    <div class="concierge-header">
+      <h4>JOY Design Concierge</h4>
+      <button class="concierge-close-btn" aria-label="Close Concierge">&times;</button>
+    </div>
+    <div class="concierge-body">
+      <div class="concierge-msg bot">
+        Welcome to JOY Luxury Furniture. How may our private studio concierge assist your project today?
+      </div>
+      <div class="concierge-quick-prompts">
+        <button class="quick-prompt-btn" data-prompt="outdoor">🌿 Recommend an outdoor patio set</button>
+        <button class="quick-prompt-btn" data-prompt="living">🛋️ Living room modular sectional</button>
+        <button class="quick-prompt-btn" data-prompt="samples">📦 Request finish & fabric sample box</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MOBILE APP BOTTOM NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="app-bottom-nav" aria-label="App Navigation">
+    <a href="index.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="catalog.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Catalog</span>
+    </a>
+    <a href="studio.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      <span>Studio</span>
+    </a>
+    <a href="#" class="bottom-nav-item js-open-wishlist">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      <span>Saved</span>
+    </a>
+    <a href="contact.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Concierge</span>
+    </a>
+  </nav>
+
+  <!-- ==========================================================================
+       SHARED FOOTER
        ========================================================================== -->
   <footer class="site-footer" role="contentinfo">
     <div class="container">
@@ -270,84 +336,47 @@
           <p>
             Timeless indoor and outdoor furniture crafted with architectural honesty, natural materials, and restorative comfort for discerning living spaces worldwide.
           </p>
-          <div class="footer-socials">
-            <a href="https://instagram.com" class="social-link" aria-label="JOY on Instagram" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="https://pinterest.com" class="social-link" aria-label="JOY on Pinterest" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.332 1.357-.053.211-.174.256-.402.155-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
-            </a>
-            <a href="https://linkedin.com" class="social-link" aria-label="JOY on LinkedIn" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-          </div>
         </div>
-
         <div class="footer-col">
-          <h4>Navigation</h4>
+          <h4>Studio WebApp</h4>
           <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="services.html">Our Services</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="about.html#craftsmanship">Artisan Quality</a></li>
-            <li><a href="contact.html#faq">Frequently Asked</a></li>
+            <li><a href="catalog.html">Catalog Studio</a></li>
+            <li><a href="studio.html">3D Room Visualizer</a></li>
+            <li><a href="#" class="js-open-wishlist">Curated Collection</a></li>
+            <li><a href="services.html">Bespoke Commissions</a></li>
           </ul>
         </div>
-
         <div class="footer-col">
-          <h4>Collections</h4>
+          <h4>Brand Heritage</h4>
           <ul class="footer-links">
-            <li><a href="services.html#indoor-furniture">Living Room Furniture</a></li>
-            <li><a href="services.html#indoor-furniture">Bedroom Furniture</a></li>
-            <li><a href="services.html#indoor-furniture">Dining Room Furniture</a></li>
-            <li><a href="services.html#outdoor-furniture">Outdoor Furniture</a></li>
-            <li><a href="services.html#outdoor-furniture">Lounge & Patio Sets</a></li>
-            <li><a href="services.html#consultation">Bespoke Furnishing</a></li>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="about.html#craftsmanship">Artisan Materials</a></li>
+            <li><a href="contact.html">Studio Showroom</a></li>
+            <li><a href="contact.html#faq">FAQ & Delivery</a></li>
           </ul>
         </div>
-
         <div class="footer-col">
           <h4>Concierge Studio</h4>
           <ul class="footer-contact-info">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>142 Horizon Boulevard, Design District, NY 10013</span>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <span>+1 (800) 569-4663</span>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <span>concierge@joyluxuryfurniture.com</span>
-            </li>
+            <li><span>142 Horizon Boulevard, Design District, NY 10013</span></li>
+            <li><span>+1 (800) 569-4663</span></li>
+            <li><span>concierge@joyluxuryfurniture.com</span></li>
           </ul>
-
-          <form class="footer-newsletter-form" aria-label="Subscribe to Private Catalogues">
-            <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--color-sand-beige);">Private Catalogues & Invitations</span>
-            <div class="newsletter-input-wrap">
-              <input type="email" placeholder="Your email address" class="newsletter-input" required aria-label="Email Address">
-              <button type="submit" class="btn btn-gold btn-sm" aria-label="Subscribe">Join</button>
-            </div>
-          </form>
         </div>
       </div>
-
       <div class="footer-bottom">
-        <div>
-          &copy; 2026 JOY Luxury Furniture. All Rights Reserved.
-        </div>
+        <div>&copy; 2026 JOY Luxury Furniture. All Rights Reserved.</div>
         <div class="footer-legal-links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>
-          <a href="#">Care & Maintenance</a>
           <a href="https://wa.me/18005694663" target="_blank" rel="noopener">WhatsApp Direct</a>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="js/main.js"></script>
+  <script src="js/webapp.js"></script>
 </body>
 </html>

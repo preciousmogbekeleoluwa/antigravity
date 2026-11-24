@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore JOY Luxury Furniture Catalog — Interactive multi-facet filter studio, fabric swatch preview, and bespoke quotation builder.">
+  <title>Catalog & Filter Studio — JOY Luxury Furniture</title>
+
+  <!-- PWA Manifest & Favicon -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#343630">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23343630'/><text x='50%' y='62%' font-family='serif' font-size='56' font-weight='600' fill='%23D5AA54' text-anchor='middle'>J</text></svg>">
+
+  <!-- Core & WebApp Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/webapp.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       PWA INSTALL BANNER
+       ========================================================================== -->
+  <div class="pwa-install-banner" role="alert">
+    <div class="pwa-banner-text">
+      <strong>Install JOY App</strong> — Instant offline access to our luxury showroom & studio planner.
+    </div>
+    <div class="pwa-banner-actions">
+      <button class="btn btn-gold btn-sm" id="pwaInstallBtn">Install</button>
+      <button class="btn btn-outline-light btn-sm" id="pwaDismissBtn">Later</button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header solid-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand-logo" aria-label="JOY Luxury Furniture Home">
+        <span class="brand-logo-text">JOY</span>
+        <span class="brand-logo-tagline">Luxury Living</span>
+      </a>
+
+      <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="catalog.html" class="nav-link active">Catalog Studio</a>
+        <a href="studio.html" class="nav-link">Room Planner</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <div class="nav-action nav-app-actions">
+        <!-- Wishlist / Bag Icon Trigger -->
+        <button class="wishlist-toggle-btn js-open-wishlist" aria-label="Open Curated Collection" title="Curated Collection">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span class="wishlist-badge-count" style="display:none;">0</span>
+        </button>
+
+        <a href="contact.html" class="btn btn-gold btn-sm">Consultation</a>
+        
+        <button class="nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="catalog.html" class="mobile-nav-link active">Catalog Studio</a>
+      <a href="studio.html" class="mobile-nav-link">Room Planner</a>
+      <a href="about.html" class="mobile-nav-link">About Us</a>
+      <a href="services.html" class="mobile-nav-link">Services</a>
+      <a href="contact.html" class="mobile-nav-link">Contact</a>
+    </nav>
+    <div class="mobile-nav-contact">
+      <button class="btn btn-gold js-open-wishlist" style="width:100%;">View Curated Collection</button>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       PAGE HERO BANNER
+       ========================================================================== -->
+  <section class="page-hero" aria-label="Catalog Hero">
+    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=85" 
+         alt="Luxury indoor and outdoor furniture showroom" class="page-hero-bg">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+      <div class="page-hero-content">
+        <span class="eyebrow eyebrow-center">Master Studio Collection</span>
+        <h1>Curated Furniture & Atelier Catalog</h1>
+        <p>Explore our complete repertoire of timeless indoor sanctuaries and outdoor living pieces. Filter by room, raw materiality, and availability, or add signature pieces to your curated collection for itemized WhatsApp quotations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CATALOG STUDIO LAYOUT
+       ========================================================================== -->
+  <main class="section" style="padding-top: 3.5rem;">
+    <div class="container">
+
+      <!-- Catalog Top Toolbar -->
+      <div class="catalog-toolbar">
+        <div class="catalog-search-wrap">
+          <svg class="catalog-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="catalogSearchInput" class="catalog-search-input" placeholder="Search by name, room, or material (e.g., teak, bouclé, patio)..." aria-label="Search Catalog">
+        </div>
+
+        <div class="catalog-controls">
+          <label for="catalogSortSelect" style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--color-warm-taupe);">Sort By:</label>
+          <select id="catalogSortSelect" class="catalog-sort-select">
+            <option value="featured">Featured Atelier</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name">Alphabetical (A–Z)</option>
+          </select>
+
+          <div class="view-mode-toggle" role="group" aria-label="Grid or Editorial View Mode">
+            <button id="btnViewGrid" class="view-btn is-active" title="Grid View" aria-label="Grid View">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+              </svg>
+            </button>
+            <button id="btnViewEditorial" class="view-btn" title="Editorial View" aria-label="Editorial View">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="8"/><rect x="3" y="14" width="18" height="7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catalog Main Grid & Sidebar Layout -->
+      <div class="catalog-app-layout">
+
+        <!-- Sidebar Faceted Filters -->
+        <aside class="catalog-sidebar" aria-label="Filter Catalog">
+          <div class="filter-heading">
+            <span>Filter Studio</span>
+            <a href="#" id="catalogResetFilters" class="filter-reset-link">Reset All</a>
+          </div>
+
+          <!-- Filter Group 1: Category -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">Space & Category</h4>
+            <div class="filter-options-list">
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-category" value="living"> Living Room</span>
+                <span class="filter-count-badge">3</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-category" value="outdoor"> Outdoor & Patio</span>
+                <span class="filter-count-badge">3</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-category" value="dining"> Dining Room</span>
+                <span class="filter-count-badge">1</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-category" value="bedroom"> Bedroom Suite</span>
+                <span class="filter-count-badge">1</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Filter Group 2: Materiality -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">Primary Material</h4>
+            <div class="filter-options-list">
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-material" value="boucle"> Italian Bouclé & Weaves</span>
+                <span class="filter-count-badge">2</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-material" value="wicker"> All-Weather Wicker</span>
+                <span class="filter-count-badge">2</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-material" value="teak"> Grade-A Teakwood</span>
+                <span class="filter-count-badge">1</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-material" value="oak"> Solid White Oak</span>
+                <span class="filter-count-badge">2</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-material" value="travertine"> Honed Travertine</span>
+                <span class="filter-count-badge">1</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Filter Group 3: Availability -->
+          <div class="filter-group">
+            <h4 class="filter-group-title">Production Status</h4>
+            <div class="filter-options-list">
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-status" value="in-stock"> Ready to Ship (1–2 Wks)</span>
+                <span class="filter-count-badge">4</span>
+              </label>
+              <label class="filter-checkbox-item">
+                <span><input type="checkbox" class="js-filter-status" value="custom"> Atelier Commission (3–6 Wks)</span>
+                <span class="filter-count-badge">4</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Quick WhatsApp Link -->
+          <div style="margin-top: 1.5rem; text-align: center;">
+            <a href="https://wa.me/18005694663?text=Hello%20JOY%20Concierge,%20I%20would%20like%20to%20request%20the%20complete%20PDF%20catalogue." 
+               class="btn btn-whatsapp btn-sm" style="width:100%;" target="_blank" rel="noopener">
+              Request PDF Catalogue
+            </a>
+          </div>
+        </aside>
+
+        <!-- Main Product Results Area -->
+        <section aria-label="Catalog Products">
+          <!-- Status Bar -->
+          <div class="catalog-status-bar">
+            <span id="catalogResultCount">Showing 8 of 8 bespoke pieces</span>
+            <div id="activeFilterPills" class="active-filters-row"></div>
+          </div>
+
+          <!-- Dynamic Products Container -->
+          <div id="catalogProductsGrid" class="catalog-products-container mode-grid">
+            <!-- Populated dynamically by JoyCatalogApp -->
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       CURATED COLLECTION / WISHLIST SLIDE-OUT DRAWER
+       ========================================================================== -->
+  <div class="drawer-backdrop" role="dialog" aria-modal="true" aria-label="Curated Collection Drawer">
+    <div class="wishlist-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <h3>Curated Collection</h3>
+          <span>Selected Bespoke Furnishings</span>
+        </div>
+        <button class="drawer-close-btn" aria-label="Close Drawer">&times;</button>
+      </div>
+
+      <div class="drawer-content">
+        <!-- Rendered by JoyWishlist -->
+      </div>
+
+      <div class="drawer-footer">
+        <div class="drawer-subtotal">
+          <span class="drawer-subtotal-label">Guide Estimate:</span>
+          <span class="drawer-subtotal-val">$0</span>
+        </div>
+        <div class="drawer-btn-group">
+          <a href="#" class="btn btn-whatsapp js-wishlist-whatsapp" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:currentColor;"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c.969.586 1.761.88 2.796.88 3.181 0 5.767-2.586 5.767-5.766.001-3.181-2.584-5.767-5.767-5.767zm3.364 8.163c-.141.396-.714.739-1.026.786-.312.046-.717.067-2.315-.595-1.597-.662-2.617-2.285-2.697-2.392-.08-.107-.648-.862-.648-1.644 0-.781.408-1.168.553-1.328.146-.16.319-.2.426-.2.106 0 .213.002.306.007.098.005.231-.037.36.274.141.34.482 1.176.525 1.263.043.087.072.189.014.304-.057.116-.086.188-.172.289-.086.101-.181.226-.258.304-.086.087-.176.182-.076.354.101.172.449.741.964 1.2 1.031.918 1.487.971 1.698 1.058.211.087.336.073.46-.07.126-.144.538-.627.682-.841.144-.215.289-.179.488-.105.2.073 1.269.598 1.488.707.218.109.364.163.418.255.053.093.053.538-.088.934z"/></svg>
+            Inquire Collection on WhatsApp
+          </a>
+          <a href="contact.html" class="btn btn-outline">Request Studio Quotation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       PRODUCT QUICK VIEW SPECIFICATION MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Product Specification Details">
+    <div class="modal-container">
+      <button class="modal-close-btn" aria-label="Close Modal">&times;</button>
+      <div class="modal-image-pane">
+        <img src="" alt="Product Detail Preview">
+      </div>
+      <div class="modal-body-pane">
+        <span class="modal-category">Collection</span>
+        <h3 class="modal-title">Product Name</h3>
+        <div class="modal-price">
+          <span class="modal-price-val">$0</span>
+          <span>(Guide Price)</span>
+        </div>
+        <p class="modal-desc">Product description goes here.</p>
+
+        <div class="modal-specs-list">
+          <div class="modal-spec-row">
+            <span class="modal-spec-label">Dimensions:</span>
+            <span class="modal-spec-val modal-spec-dimensions">-</span>
+          </div>
+          <div class="modal-spec-row">
+            <span class="modal-spec-label">Materials:</span>
+            <span class="modal-spec-val modal-spec-materials">-</span>
+          </div>
+          <div class="modal-spec-row">
+            <span class="modal-spec-label">Lead Time:</span>
+            <span class="modal-spec-val modal-spec-leadtime">-</span>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <a href="#" class="btn btn-whatsapp modal-whatsapp-link" target="_blank" rel="noopener">
+            Inquire on WhatsApp
+          </a>
+          <a href="contact.html" class="btn btn-outline">Request Studio Consultation</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FLOATING DESIGN CONCIERGE ASSISTANT WIDGET
+       ========================================================================== -->
+  <button class="concierge-widget-btn" aria-label="Open JOY Design Concierge Assistant">
+    <span class="concierge-pulse-dot"></span>
+    <span>JOY Concierge</span>
+  </button>
+
+  <div class="concierge-modal" role="dialog" aria-label="JOY Concierge Assistant">
+    <div class="concierge-header">
+      <h4>JOY Design Concierge</h4>
+      <button class="concierge-close-btn" aria-label="Close Concierge">&times;</button>
+    </div>
+    <div class="concierge-body">
+      <div class="concierge-msg bot">
+        Welcome to JOY Luxury Furniture. How may our private studio concierge assist your project today?
+      </div>
+      <div class="concierge-quick-prompts">
+        <button class="quick-prompt-btn" data-prompt="outdoor">🌿 Recommend an outdoor patio set</button>
+        <button class="quick-prompt-btn" data-prompt="living">🛋️ Living room modular sectional</button>
+        <button class="quick-prompt-btn" data-prompt="samples">📦 Request finish & fabric sample box</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MOBILE APP BOTTOM NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="app-bottom-nav" aria-label="App Navigation">
+    <a href="index.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="catalog.html" class="bottom-nav-item is-active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Catalog</span>
+    </a>
+    <a href="studio.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      <span>Studio</span>
+    </a>
+    <a href="#" class="bottom-nav-item js-open-wishlist">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      <span>Saved</span>
+    </a>
+    <a href="contact.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Concierge</span>
+    </a>
+  </nav>
+
+  <!-- ==========================================================================
+       SHARED FOOTER
+       ========================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <span class="brand-logo-text">JOY</span>
+            <span class="brand-logo-tagline">Luxury Furniture</span>
+          </a>
+          <p>
+            Timeless indoor and outdoor furniture crafted with architectural honesty, natural materials, and restorative comfort for discerning living spaces worldwide.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio WebApp</h4>
+          <ul class="footer-links">
+            <li><a href="catalog.html">Catalog Studio</a></li>
+            <li><a href="studio.html">3D Room Visualizer</a></li>
+            <li><a href="#" class="js-open-wishlist">Curated Collection</a></li>
+            <li><a href="services.html">Bespoke Commissions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Brand Heritage</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="about.html#craftsmanship">Artisan Materials</a></li>
+            <li><a href="contact.html">Studio Showroom</a></li>
+            <li><a href="contact.html#faq">FAQ & Delivery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Concierge Studio</h4>
+          <ul class="footer-contact-info">
+            <li><span>142 Horizon Boulevard, Design District, NY 10013</span></li>
+            <li><span>+1 (800) 569-4663</span></li>
+            <li><span>concierge@joyluxuryfurniture.com</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 JOY Luxury Furniture. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="https://wa.me/18005694663" target="_blank" rel="noopener">WhatsApp Direct</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/webapp.js"></script>
+</body>
+</html>
