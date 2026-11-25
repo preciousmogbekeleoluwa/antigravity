@@ -38,9 +38,18 @@ The visual identity is inspired by quiet international luxury, organic architect
    - Quantity adjustment, finish selection, and subtotal calculation.
    - One-click itemized WhatsApp quotation generator.
 
-4. **Progressive Web App (PWA)**:
+4. **Client Portal & VIP Sanctuary (`account.html`)**:
+   - Private client authentication modal with Sign In and VIP Registration.
+   - One-Click VIP Demo access for instant review (`eleanor@vance-residence.com`).
+   - Active bespoke inquiries and quotes dashboard linked directly with backend storage.
+   - Interactive Curated Wishlist review with itemized quote requests.
+   - Residence address and project scope management form with real-time profile updates.
+   - Dynamic client avatar pill and dropdown menu in the header.
+
+5. **Progressive Web App (PWA)**:
    - Web App Manifest (`manifest.json`) and Service Worker (`sw.js`) for offline caching and fast load.
-   - Mobile app bottom navigation bar and home screen install banner.
+   - Mobile app bottom navigation bar with one-tap access to Home, Catalog, Studio, Saved, and Client Portal.
+   - 100% responsive Call-To-Action (CTA) targets designed to meet WCAG 48px touch guidelines.
 
 ---
 
@@ -52,10 +61,14 @@ The backend is built with native Node.js and zero external dependencies, running
 
 | Endpoint | Method | Description |
 | :--- | :--- | :--- |
+| `/api/auth?action=login` | `POST` | Authenticates client email/passcode and returns VIP session token & profile. |
+| `/api/auth?action=register` | `POST` | Registers a new private residence or design firm client with unique `JOY-CLIENT-XXXX` ID. |
+| `/api/auth?action=me` | `GET` | Fetches active authenticated client profile. |
+| `/api/auth?action=profile` | `PUT` | Updates client residence address, telephone, classification, and styling scope. |
 | `/api/products` | `GET` | Query catalog products with filters (`category`, `material`, `status`, `search`, `sort`, `limit`). |
 | `/api/products?id=<id>` | `GET` | Retrieve single product with full specifications, frame joinery, and care guides. |
 | `/api/inquiries` | `POST` | Validates and logs client inquiries/bespoke quotes; returns reference code `JOY-INQ-YYYY-XXXX`. |
-| `/api/inquiries` | `GET` | Concierge listing of recent client inquiries. |
+| `/api/inquiries?email=<email>` | `GET` | Fetches inquiries associated with a specific client account. |
 | `/api/concepts` | `POST` | Saves spatial room layouts created on the 3D Studio canvas; returns `JOY-CONCEPT-XXXX`. |
 | `/api/concepts?id=<id>` | `GET` | Retrieves a saved room concept for client or designer review. |
 | `/api/concierge` | `POST` | Semantic design advisor endpoint that processes natural language requests and returns matching catalog pieces and styling notes. |

@@ -45,6 +45,9 @@
           <span class="wishlist-badge-count" style="display:none;">0</span>
         </button>
 
+        <!-- Client Portal / Sign In Container -->
+        <div class="js-header-auth-container"></div>
+
         <a href="catalog.html" class="btn btn-gold btn-sm">Catalog</a>
 
         <button class="nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
@@ -68,6 +71,7 @@
     </nav>
     <div class="mobile-nav-contact">
       <button class="btn btn-gold js-open-wishlist" style="width:100%;">View Curated Collection</button>
+      <div class="js-mobile-auth-container"></div>
     </div>
   </div>
 
@@ -371,9 +375,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
       <span>Saved</span>
     </a>
-    <a href="contact.html" class="bottom-nav-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span>Concierge</span>
+    <a href="account.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Portal</span>
     </a>
   </nav>
 
@@ -398,6 +402,7 @@
             <li><a href="catalog.html">Catalog Studio</a></li>
             <li><a href="studio.html">3D Room Visualizer</a></li>
             <li><a href="#" class="js-open-wishlist">Curated Collection</a></li>
+            <li><a href="account.html">Client Portal & VIP</a></li>
             <li><a href="services.html">Bespoke Commissions</a></li>
           </ul>
         </div>
@@ -429,6 +434,105 @@
       </div>
     </div>
   </footer>
+
+  <!-- ==========================================================================
+       CLIENT AUTHENTICATION / SIGN IN MODAL
+       ========================================================================== -->
+  <div id="authModal" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="authModalTitle">
+    <div class="auth-modal-container">
+      <div class="auth-modal-header">
+        <button class="auth-modal-close-btn js-close-auth-modal" aria-label="Close Authentication Modal">&times;</button>
+        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--color-mustard-gold); font-weight:600; display:block; margin-bottom:0.35rem;">JOY Private Client Services</span>
+        <h3 id="authModalTitle">Client Portal Access</h3>
+        <p>Sign in to manage commissions, bespoke room renderings, and curated quotes.</p>
+      </div>
+
+      <!-- Auth Tabs -->
+      <div class="auth-tabs-bar" role="tablist">
+        <button class="auth-tab-btn is-active" data-tab="login" role="tab" aria-selected="true" aria-controls="authFormPaneLogin">
+          Client Sign In
+        </button>
+        <button class="auth-tab-btn" data-tab="register" role="tab" aria-selected="false" aria-controls="authFormPaneRegister">
+          Register VIP Account
+        </button>
+      </div>
+
+      <div class="auth-modal-body">
+        <!-- Tab 1: Sign In -->
+        <div id="authFormPaneLogin" class="auth-form-pane is-active" role="tabpanel">
+          <div id="authLoginError" class="auth-error-banner" role="alert"></div>
+
+          <form id="authLoginForm" novalidate>
+            <div class="auth-form-group">
+              <label for="authLoginEmail">Client Email</label>
+              <input type="email" id="authLoginEmail" name="email" class="auth-input" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+            </div>
+
+            <div class="auth-form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label for="authLoginPassword">Passcode</label>
+                <a href="contact.html" style="font-size:0.75rem; color:var(--color-mustard-gold-hover); text-decoration:underline;">Forgot?</a>
+              </div>
+              <input type="password" id="authLoginPassword" name="password" class="auth-input" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center; margin-top:0.5rem;">
+              Sign In to Client Portal
+            </button>
+          </form>
+
+          <div style="text-align:center; margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--border-subtle);">
+            <span style="font-size:0.75rem; color:var(--color-warm-taupe); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:0.5rem;">Quick Evaluation Preview</span>
+            <button id="authDemoVipBtn" type="button" class="auth-demo-btn" style="width:100%;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              One-Click Demo VIP Access (Eleanor Vance)
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab 2: Register -->
+        <div id="authFormPaneRegister" class="auth-form-pane" role="tabpanel">
+          <div id="authRegisterError" class="auth-error-banner" role="alert"></div>
+
+          <form id="authRegisterForm" novalidate>
+            <div class="auth-form-group">
+              <label for="authRegName">Full Name / Design Firm <span class="required" style="color:var(--color-mustard-gold-hover);">*</span></label>
+              <input type="text" id="authRegName" name="fullName" class="auth-input" placeholder="e.g. Eleanor Vance or Vance Interiors" required autocomplete="name">
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegEmail">Client Email <span class="required" style="color:var(--color-mustard-gold-hover);">*</span></label>
+              <input type="email" id="authRegEmail" name="email" class="auth-input" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegPhone">Direct Telephone / Mobile</label>
+              <input type="tel" id="authRegPhone" name="phone" class="auth-input" placeholder="e.g. +1 (555) 234-5678" autocomplete="tel">
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegClientType">Client Type</label>
+              <select id="authRegClientType" name="clientType" class="auth-input">
+                <option value="Private Residence">Private Residence Client</option>
+                <option value="Architectural / Interior Designer">Architectural / Interior Designer</option>
+                <option value="Hospitality / Commercial">Hospitality / Commercial Developer</option>
+                <option value="Curator / Collector">Private Collector / Curator</option>
+              </select>
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegPass">Security Passcode (min. 6 characters) <span class="required" style="color:var(--color-mustard-gold-hover);">*</span></label>
+              <input type="password" id="authRegPass" name="password" class="auth-input" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center; margin-top:0.5rem;">
+              Register VIP Membership
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="js/main.js"></script>

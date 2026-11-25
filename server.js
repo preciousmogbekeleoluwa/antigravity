@@ -10,6 +10,7 @@ const apiProducts = require('./api/products');
 const apiInquiries = require('./api/inquiries');
 const apiConcepts = require('./api/concepts');
 const apiConcierge = require('./api/concierge');
+const apiAuth = require('./api/auth');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
@@ -73,6 +74,8 @@ const server = http.createServer((req, res) => {
         return apiConcepts(req, res);
       } else if (pathname === '/api/concierge') {
         return apiConcierge(req, res);
+      } else if (pathname === '/api/auth') {
+        return apiAuth(req, res);
       } else {
         return res.status(404).json({ error: 'API Endpoint Not Found', path: pathname });
       }

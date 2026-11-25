@@ -48,7 +48,12 @@ module.exports = function handler(req, res) {
 
   // GET: Concierge Inquiries Listing
   if (req.method === 'GET') {
-    const list = readInquiries();
+    let list = readInquiries();
+    const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+    const email = url.searchParams.get('email');
+    if (email) {
+      list = list.filter(item => item.email && item.email.toLowerCase() === email.toLowerCase());
+    }
     res.status(200).json({
       success: true,
       count: list.length,

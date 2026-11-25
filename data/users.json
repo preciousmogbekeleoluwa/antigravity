@@ -1,0 +1,18 @@
+[
+  {
+    "id": "JOY-CLIENT-1001",
+    "fullName": "Eleanor Vance",
+    "email": "eleanor@vance-residence.com",
+    "phone": "+1 (555) 234-5678",
+    "password": "password123",
+    "clientType": "Private Residence",
+    "createdAt": "2026-11-20T10:00:00.000Z",
+    "address": {
+      "street": "742 Evergreen Terrace",
+      "city": "Hudson Valley",
+      "state": "NY",
+      "zip": "12534"
+    },
+    "projectScope": "Master suite living room & outdoor sun deck furnishing"
+  }
+]

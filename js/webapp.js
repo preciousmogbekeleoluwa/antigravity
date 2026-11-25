@@ -1056,6 +1056,402 @@ function initPWA() {
 }
 
 // ==========================================================================
+// 8. CLIENT AUTHENTICATION & VIP PORTAL (JoyAuth)
+// ==========================================================================
+class JoyAuth {
+  constructor() {
+    this.currentUser = null;
+    this.token = null;
+    this.init();
+  }
+
+  init() {
+    this.loadSession();
+    this.bindEvents();
+    this.renderHeaderAuth();
+  }
+
+  loadSession() {
+    try {
+      const storedUser = localStorage.getItem('joy_auth_user');
+      const storedToken = localStorage.getItem('joy_auth_token');
+      if (storedUser && storedToken) {
+        this.currentUser = JSON.parse(storedUser);
+        this.token = storedToken;
+      }
+    } catch (e) {
+      this.currentUser = null;
+      this.token = null;
+    }
+  }
+
+  saveSession(user, token) {
+    this.currentUser = user;
+    this.token = token;
+    try {
+      localStorage.setItem('joy_auth_user', JSON.stringify(user));
+      localStorage.setItem('joy_auth_token', token);
+    } catch (e) {}
+    window.dispatchEvent(new CustomEvent('joy-auth-changed', { detail: { user } }));
+    this.renderHeaderAuth();
+    this.prefillContactForms();
+  }
+
+  logout() {
+    try {
+      localStorage.removeItem('joy_auth_user');
+      localStorage.removeItem('joy_auth_token');
+    } catch (e) {}
+    this.currentUser = null;
+    this.token = null;
+    window.dispatchEvent(new CustomEvent('joy-auth-changed', { detail: { user: null } }));
+    this.renderHeaderAuth();
+    if (window.location.pathname.includes('account.html')) {
+      window.location.href = 'index.html';
+    } else {
+      this.showToast('Signed out of JOY Private Client Services');
+    }
+  }
+
+  openModal(mode = 'login') {
+    const modal = document.querySelector('#authModal');
+    if (!modal) return;
+    this.switchTab(mode);
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  closeModal() {
+    const modal = document.querySelector('#authModal');
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    const loginErr = document.querySelector('#authLoginError');
+    const regErr = document.querySelector('#authRegisterError');
+    if (loginErr) loginErr.style.display = 'none';
+    if (regErr) regErr.style.display = 'none';
+  }
+
+  switchTab(tabName) {
+    const tabs = document.querySelectorAll('.auth-tab-btn');
+    const panes = document.querySelectorAll('.auth-form-pane');
+    tabs.forEach(t => {
+      const isActive = t.getAttribute('data-tab') === tabName;
+      t.classList.toggle('is-active', isActive);
+      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+    panes.forEach(p => {
+      const isActive = p.id === `authFormPane${tabName.charAt(0).toUpperCase() + tabName.slice(1)}`;
+      p.classList.toggle('is-active', isActive);
+    });
+  }
+
+  async handleLogin(e) {
+    e.preventDefault();
+    const form = e.target;
+    const email = (form.querySelector('[name="email"]')?.value || '').trim();
+    const password = (form.querySelector('[name="password"]')?.value || '').trim();
+    const errorEl = document.querySelector('#authLoginError');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if (!email || !password) {
+      if (errorEl) {
+        errorEl.textContent = 'Please enter both your client email and passcode.';
+        errorEl.style.display = 'block';
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg style="width:16px;height:16px;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke-width="4" stroke-opacity="0.25"/>
+          <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+        </svg> Signing In...
+      `;
+    }
+    if (errorEl) errorEl.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/auth?action=login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Authentication unverified.');
+      }
+      this.saveSession(data.user, data.token);
+      this.closeModal();
+      this.showToast(`Welcome back, ${data.user.fullName}`);
+      form.reset();
+      if (typeof window.renderAccountPortal === 'function') {
+        window.renderAccountPortal();
+      }
+    } catch (err) {
+      if (errorEl) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign In to Client Portal';
+      }
+    }
+  }
+
+  async handleRegister(e) {
+    e.preventDefault();
+    const form = e.target;
+    const fullName = (form.querySelector('[name="fullName"]')?.value || '').trim();
+    const email = (form.querySelector('[name="email"]')?.value || '').trim();
+    const phone = (form.querySelector('[name="phone"]')?.value || '').trim();
+    const clientType = form.querySelector('[name="clientType"]')?.value || 'Private Residence';
+    const password = (form.querySelector('[name="password"]')?.value || '').trim();
+    const errorEl = document.querySelector('#authRegisterError');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if (!fullName || !email || !password) {
+      if (errorEl) {
+        errorEl.textContent = 'Please complete all required fields.';
+        errorEl.style.display = 'block';
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg style="width:16px;height:16px;animation:spin 1s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" stroke-width="4" stroke-opacity="0.25"/>
+          <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+        </svg> Registering Account...
+      `;
+    }
+    if (errorEl) errorEl.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/auth?action=register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, phone, clientType, password })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Registration failed.');
+      }
+      this.saveSession(data.user, data.token);
+      this.closeModal();
+      this.showToast(`Welcome to JOY Private Client Services, ${data.user.fullName}`);
+      form.reset();
+      if (typeof window.renderAccountPortal === 'function') {
+        window.renderAccountPortal();
+      }
+    } catch (err) {
+      if (errorEl) {
+        errorEl.textContent = err.message;
+        errorEl.style.display = 'block';
+      }
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Register VIP Membership';
+      }
+    }
+  }
+
+  loginAsDemoVIP() {
+    const emailInput = document.querySelector('#authLoginForm [name="email"]');
+    const passInput = document.querySelector('#authLoginForm [name="password"]');
+    if (emailInput && passInput) {
+      emailInput.value = 'eleanor@vance-residence.com';
+      passInput.value = 'password123';
+      const form = document.querySelector('#authLoginForm');
+      if (form) {
+        form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+      }
+    }
+  }
+
+  renderHeaderAuth() {
+    const authContainers = document.querySelectorAll('.js-header-auth-container');
+    authContainers.forEach(container => {
+      if (this.currentUser) {
+        const initials = this.currentUser.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'VIP';
+        const firstName = this.currentUser.fullName.split(' ')[0] || 'Client';
+        container.innerHTML = `
+          <div class="client-profile-pill" tabindex="0" role="button" aria-haspopup="true" aria-label="Client Account Menu">
+            <div class="client-avatar-circle">${initials}</div>
+            <span class="client-name">${firstName}</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+            <div class="client-menu-dropdown" role="menu">
+              <div style="padding: 0.5rem 1.25rem 0.25rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-mustard-gold-hover); font-weight:700;">
+                ${this.currentUser.id || 'JOY VIP CLIENT'}
+              </div>
+              <div style="padding: 0 1.25rem 0.5rem; font-size: 0.85rem; font-weight: 600; color: var(--color-deep-charcoal); border-bottom: 1px solid var(--border-subtle); margin-bottom: 0.35rem;">
+                ${this.currentUser.fullName}
+              </div>
+              <a href="account.html" class="client-menu-item" role="menuitem">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                Client Portal & Sanctuary
+              </a>
+              <a href="account.html#inquiries" class="client-menu-item" role="menuitem">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                My Inquiries & Quotes
+              </a>
+              <a href="studio.html" class="client-menu-item" role="menuitem">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                Room Studio 3D Canvas
+              </a>
+              <div class="client-menu-divider"></div>
+              <button class="client-menu-item js-auth-logout" style="width:100%; border:none; background:none; text-align:left; color:#b91c1c; cursor:pointer;" role="menuitem">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Sign Out
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <button class="btn btn-outline client-auth-btn js-open-auth-btn" aria-label="Client Sign In">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Client Sign In</span>
+          </button>
+        `;
+      }
+    });
+
+    // Mobile drawer auth triggers
+    const mobileAuthContainers = document.querySelectorAll('.js-mobile-auth-container');
+    mobileAuthContainers.forEach(container => {
+      if (this.currentUser) {
+        container.innerHTML = `
+          <div style="padding: 1rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 1rem;">
+            <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-mustard-gold); margin-bottom: 0.25rem; font-weight:700;">VIP Client</div>
+            <div style="font-weight: 600; font-size: 1rem; color: #fff; margin-bottom: 0.75rem;">${this.currentUser.fullName}</div>
+            <a href="account.html" class="btn btn-gold" style="width:100%; justify-content:center; margin-bottom:0.5rem; text-decoration:none;">Open Client Portal</a>
+            <button class="btn btn-outline js-auth-logout" style="width:100%; justify-content:center; border-color:rgba(255,255,255,0.25); color:#fff;">Sign Out</button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div style="padding: 1rem 0; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 1rem;">
+            <button class="btn btn-gold js-open-auth-btn" style="width:100%; justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Client Sign In / Register
+            </button>
+          </div>
+        `;
+      }
+    });
+
+    this.bindDynamicAuthElements();
+  }
+
+  bindEvents() {
+    document.addEventListener('click', (e) => {
+      const openBtn = e.target.closest('.js-open-auth-btn');
+      if (openBtn) {
+        e.preventDefault();
+        const mode = openBtn.dataset.authMode || 'login';
+        this.openModal(mode);
+        return;
+      }
+
+      const closeBtn = e.target.closest('.auth-modal-close-btn') || e.target.closest('.js-close-auth-modal');
+      if (closeBtn) {
+        e.preventDefault();
+        this.closeModal();
+        return;
+      }
+
+      if (e.target.classList.contains('auth-modal-backdrop')) {
+        this.closeModal();
+        return;
+      }
+
+      const tabBtn = e.target.closest('.auth-tab-btn');
+      if (tabBtn) {
+        e.preventDefault();
+        this.switchTab(tabBtn.getAttribute('data-tab'));
+        return;
+      }
+
+      const demoBtn = e.target.closest('#authDemoVipBtn');
+      if (demoBtn) {
+        e.preventDefault();
+        this.loginAsDemoVIP();
+        return;
+      }
+
+      const logoutBtn = e.target.closest('.js-auth-logout');
+      if (logoutBtn) {
+        e.preventDefault();
+        this.logout();
+        return;
+      }
+    });
+
+    const loginForm = document.querySelector('#authLoginForm');
+    if (loginForm) loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+
+    const registerForm = document.querySelector('#authRegisterForm');
+    if (registerForm) registerForm.addEventListener('submit', (e) => this.handleRegister(e));
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.closeModal();
+    });
+
+    this.prefillContactForms();
+  }
+
+  bindDynamicAuthElements() {
+    const pills = document.querySelectorAll('.client-profile-pill');
+    pills.forEach(pill => {
+      pill.onclick = (e) => {
+        if (!e.target.closest('.client-menu-dropdown')) {
+          pill.classList.toggle('is-open');
+        }
+      };
+    });
+  }
+
+  prefillContactForms() {
+    if (!this.currentUser) return;
+    const contactName = document.querySelector('#fullName') || document.querySelector('#contactName');
+    const contactEmail = document.querySelector('#email') || document.querySelector('#contactEmail');
+    const contactPhone = document.querySelector('#phone') || document.querySelector('#contactPhone');
+    if (contactName && !contactName.value) contactName.value = this.currentUser.fullName || '';
+    if (contactEmail && !contactEmail.value) contactEmail.value = this.currentUser.email || '';
+    if (contactPhone && !contactPhone.value) contactPhone.value = this.currentUser.phone || '';
+  }
+
+  showToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'wishlist-toast is-visible';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => {
+      toast.classList.remove('is-visible');
+      setTimeout(() => toast.remove(), 400);
+    }, 3200);
+  }
+}
+
+// Global Auth instance
+window.joyAuth = null;
+
+// ==========================================================================
 // 7. BOOTSTRAP ON LOAD
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
@@ -1063,5 +1459,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.joyCatalogApp = new JoyCatalogApp();
   window.joyRoomStudio = new JoyRoomStudio();
   window.joyConcierge = new JoyConciergeWidget();
+  window.joyAuth = new JoyAuth();
   initPWA();
 });

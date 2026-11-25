@@ -1133,7 +1133,421 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE OVERRIDES FOR WEBAPP
+   CLIENT AUTHENTICATION & PRIVATE PORTAL STYLES
+   ========================================================================== */
+.client-auth-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(119, 115, 101, 0.25);
+  background-color: transparent;
+  color: var(--color-deep-charcoal);
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.site-header.transparent .client-auth-btn {
+  color: var(--color-warm-ivory);
+  border-color: rgba(243, 239, 231, 0.3);
+}
+
+.client-auth-btn:hover {
+  background-color: var(--color-mustard-gold);
+  border-color: var(--color-mustard-gold);
+  color: var(--color-deep-charcoal);
+  transform: translateY(-2px);
+}
+
+.client-auth-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Logged-In User Profile Pill */
+.client-profile-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 30px;
+  background-color: var(--color-sand-beige-light);
+  border: 1px solid var(--border-subtle);
+  color: var(--color-deep-charcoal);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+.client-avatar-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--color-mustard-gold);
+  color: var(--color-deep-charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* User Dropdown Menu */
+.client-menu-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  width: 240px;
+  background-color: var(--color-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 0.75rem 0;
+  display: none;
+  flex-direction: column;
+  z-index: 1100;
+}
+
+.client-profile-pill:hover .client-menu-dropdown,
+.client-profile-pill.is-open .client-menu-dropdown {
+  display: flex;
+}
+
+.client-menu-item {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.85rem;
+  color: var(--color-deep-charcoal);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background-color 0.2s ease;
+}
+
+.client-menu-item:hover {
+  background-color: var(--color-sand-beige-light);
+  color: var(--color-mustard-gold-hover);
+}
+
+.client-menu-divider {
+  height: 1px;
+  background-color: var(--border-subtle);
+  margin: 0.4rem 0;
+}
+
+/* Authentication Modal Dialog */
+.auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(34, 35, 32, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.auth-modal-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.auth-modal-container {
+  background-color: var(--color-warm-ivory);
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+  transform: translateY(20px) scale(0.98);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-modal-backdrop.is-open .auth-modal-container {
+  transform: translateY(0) scale(1);
+}
+
+.auth-modal-header {
+  background-color: var(--color-deep-charcoal);
+  color: var(--color-warm-ivory);
+  padding: 2rem 2rem 1.5rem;
+  position: relative;
+  text-align: center;
+}
+
+.auth-modal-header h3 {
+  color: var(--color-warm-ivory);
+  font-size: 1.8rem;
+  margin-bottom: 0.35rem;
+}
+
+.auth-modal-header p {
+  color: rgba(243, 239, 231, 0.8);
+  font-size: 0.88rem;
+}
+
+.auth-modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  color: var(--color-warm-ivory);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Auth Tabs */
+.auth-tabs-bar {
+  display: flex;
+  border-bottom: 1px solid var(--border-subtle);
+  background-color: var(--color-warm-ivory-light);
+}
+
+.auth-tab-btn {
+  flex: 1;
+  padding: 0.9rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-warm-taupe);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.auth-tab-btn.is-active {
+  color: var(--color-deep-charcoal);
+  border-bottom-color: var(--color-mustard-gold);
+  background-color: var(--color-warm-ivory);
+}
+
+.auth-modal-body {
+  padding: 2rem;
+}
+
+.auth-form-pane {
+  display: none;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.auth-form-pane.is-active {
+  display: flex;
+}
+
+.auth-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.auth-form-group label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--color-deep-charcoal);
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background-color: var(--color-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  color: var(--color-deep-charcoal);
+  transition: var(--transition-fast);
+}
+
+.auth-input:focus {
+  border-color: var(--color-mustard-gold);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(213, 170, 84, 0.18);
+}
+
+.auth-error-banner {
+  display: none;
+  padding: 0.75rem 1rem;
+  background-color: #FFF5F5;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-sm);
+  color: #B91C1C;
+  font-size: 0.82rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth-demo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1rem;
+  background-color: rgba(213, 170, 84, 0.12);
+  border: 1px dashed var(--color-mustard-gold);
+  border-radius: var(--radius-sm);
+  color: var(--color-deep-charcoal);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-top: 0.25rem;
+}
+
+.auth-demo-btn:hover {
+  background-color: var(--color-mustard-gold);
+  color: var(--color-white);
+}
+
+/* ==========================================================================
+   CLIENT PORTAL PAGE STYLES (account.html)
+   ========================================================================== */
+.portal-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 3rem;
+  margin-top: 2.5rem;
+}
+
+.portal-sidebar-card {
+  background-color: var(--color-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.portal-client-badge {
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.portal-avatar-large {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--color-mustard-gold);
+  color: var(--color-deep-charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 auto 1rem;
+  box-shadow: 0 4px 15px rgba(213, 170, 84, 0.3);
+}
+
+.portal-client-badge h3 {
+  font-size: 1.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.portal-client-badge span {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-mustard-gold-hover);
+  font-weight: 600;
+}
+
+.portal-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.portal-nav-btn {
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--color-deep-charcoal);
+  font-weight: 500;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: var(--transition-fast);
+}
+
+.portal-nav-btn.is-active,
+.portal-nav-btn:hover {
+  background-color: var(--color-sand-beige-light);
+  color: var(--color-deep-charcoal);
+  font-weight: 600;
+}
+
+.portal-nav-btn svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-mustard-gold);
+}
+
+.portal-main-pane {
+  background-color: var(--color-white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: clamp(2rem, 4vw, 3rem);
+}
+
+.portal-tab-content {
+  display: none;
+}
+
+.portal-tab-content.is-active {
+  display: block;
+}
+
+/* Inquiries Table / Cards */
+.inquiry-status-pill {
+  padding: 0.35rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.inquiry-status-pill.review {
+  background-color: rgba(213, 170, 84, 0.15);
+  color: var(--color-mustard-gold-hover);
+}
+
+.inquiry-status-pill.scheduled {
+  background-color: rgba(39, 77, 61, 0.15);
+  color: #274D3D;
+}
+
+/* ==========================================================================
+   RESPONSIVE OVERRIDES FOR WEBAPP & MOBILE CTA ACCESSIBILITY
    ========================================================================== */
 @media (max-width: 1024px) {
   .catalog-app-layout {
@@ -1145,11 +1559,14 @@
   .studio-layout {
     grid-template-columns: 1fr;
   }
+  .portal-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
   body {
-    padding-bottom: 64px; /* Space for bottom nav */
+    padding-bottom: 72px; /* Generous space for mobile bottom nav */
   }
   .app-bottom-nav {
     display: flex;
@@ -1163,9 +1580,127 @@
   .concierge-modal {
     bottom: 9.5rem;
     left: 1rem;
+    width: calc(100vw - 2rem);
+    max-width: 380px;
   }
   .catalog-products-container.mode-grid,
   .catalog-products-container.mode-editorial {
     grid-template-columns: 1fr;
+  }
+  .portal-nav-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .portal-nav-btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+  }
+  .portal-main-pane {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Wishlist Drawer Fullscreen on Mobile */
+  .wishlist-drawer {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .drawer-footer .btn {
+    min-height: 52px;
+    font-size: 0.82rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Auth Modal Mobile Touch Optimization */
+  .auth-modal-backdrop {
+    padding: 0.75rem;
+    align-items: flex-end;
+  }
+
+  .auth-modal-container {
+    max-height: 92vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  .auth-modal-header {
+    padding: 1.5rem 1.25rem 1.25rem;
+  }
+
+  .auth-modal-header h3 {
+    font-size: 1.45rem;
+  }
+
+  .auth-modal-body {
+    padding: 1.25rem;
+  }
+
+  .auth-tab-btn {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .auth-input {
+    min-height: 48px;
+    font-size: 16px; /* Prevents auto-zoom in iOS Safari */
+  }
+
+  .auth-demo-btn {
+    min-height: 48px;
+    font-size: 0.74rem;
+    white-space: normal;
+    text-align: center;
+  }
+
+  /* Studio Summary Bar Mobile Wrap */
+  .studio-summary-bar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1.25rem;
+    gap: 1.25rem;
+  }
+
+  .studio-summary-stats {
+    justify-content: space-between;
+  }
+
+  .studio-summary-bar > div:last-child {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.65rem;
+  }
+
+  .studio-summary-bar > div:last-child .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Client Portal Mobile */
+  .portal-nav-list {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-sidebar-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  /* Client Profile Pill on small screens */
+  .client-name {
+    display: none;
+  }
+
+  .client-profile-pill {
+    padding: 0.35rem;
+    border-radius: 50%;
+  }
+
+  .client-profile-pill svg {
+    display: none;
   }
 }

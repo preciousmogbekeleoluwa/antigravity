@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Portal & VIP Sanctuary | JOY Luxury Furniture</title>
+  <meta name="description" content="JOY Luxury Furniture Private Client Portal. Manage bespoke furniture commissions, curated project wishlists, and residence styling preferences.">
+  <meta name="theme-color" content="#343630">
+
+  <!-- Web Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core & WebApp Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/webapp.css">
+
+  <!-- Favicon & PWA Manifest -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23343630'/><text x='50' y='65' font-family='serif' font-size='55' fill='%23D5AA54' text-anchor='middle'>J</text></svg>">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body class="page-account">
+
+  <!-- ==========================================================================
+       HEADER & NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header scrolled" role="banner">
+    <div class="container">
+      <a href="index.html" class="brand-logo" aria-label="JOY Luxury Furniture Home">
+        <span class="brand-logo-text">JOY</span>
+        <span class="brand-logo-tagline">Client Portal</span>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-menu" role="navigation" aria-label="Main Navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="catalog.html" class="nav-link">Catalog Studio</a>
+        <a href="studio.html" class="nav-link">Room Planner</a>
+        <a href="about.html" class="nav-link">About Us</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+
+      <!-- Nav CTA & Wishlist Trigger -->
+      <div class="nav-action nav-app-actions">
+        <!-- Wishlist / Bag Icon Trigger -->
+        <button class="wishlist-toggle-btn js-open-wishlist" aria-label="Open Curated Collection" title="Curated Collection">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span class="wishlist-badge-count" style="display:none;">0</span>
+        </button>
+
+        <!-- Client Portal / Sign In Container -->
+        <div class="js-header-auth-container"></div>
+
+        <a href="catalog.html" class="btn btn-gold btn-sm">Catalog</a>
+
+        <button class="nav-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <nav class="mobile-nav-links">
+      <a href="index.html" class="mobile-nav-link">Home</a>
+      <a href="catalog.html" class="mobile-nav-link">Catalog Studio</a>
+      <a href="studio.html" class="mobile-nav-link">Room Planner</a>
+      <a href="about.html" class="mobile-nav-link">About Us</a>
+      <a href="services.html" class="mobile-nav-link">Services</a>
+      <a href="contact.html" class="mobile-nav-link">Contact</a>
+      <a href="account.html" class="mobile-nav-link active">Client Portal</a>
+    </nav>
+    <div class="mobile-nav-contact">
+      <button class="btn btn-gold js-open-wishlist" style="width:100%;">View Curated Collection</button>
+      <div class="js-mobile-auth-container"></div>
+      <p>Luxury Indoor & Outdoor Furniture</p>
+      <a href="https://wa.me/18005694663?text=Hello%20JOY%20Concierge,%20I%20am%20calling%20regarding%20my%20client%20account." class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener">
+        WhatsApp Concierge
+      </a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       PAGE HERO BANNER
+       ========================================================================== -->
+  <section class="page-hero" aria-label="Client Portal Hero" style="min-height: 280px; padding: 120px 0 50px;">
+    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1920&q=85" 
+         alt="Luxury private interior residence" class="page-hero-bg">
+    <div class="page-hero-overlay" style="background: rgba(34, 35, 32, 0.72);"></div>
+    <div class="container">
+      <div class="page-hero-content" style="max-width: 800px;">
+        <span class="eyebrow eyebrow-center" style="color:var(--color-mustard-gold);">Private Client Services</span>
+        <h1>Atelier Client Sanctuary & Portfolio</h1>
+        <p>Your bespoke commissions, active concierge inquiries, curated collections, and residential styling scope in one private space.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CLIENT PORTAL CONTAINER
+       ========================================================================== -->
+  <section class="section" style="padding-top: 3rem; background-color: var(--color-warm-ivory);">
+    <div class="container">
+
+      <!-- Guest / Not Logged In View -->
+      <div id="portalGuestView" style="display:none; text-align:center; max-width:650px; margin: 2rem auto; padding: 3.5rem 2rem; background: var(--color-white); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); box-shadow: 0 10px 30px rgba(0,0,0,0.04);">
+        <div style="width:68px; height:68px; border-radius:50%; background:rgba(213,170,84,0.15); color:var(--color-mustard-gold-hover); display:flex; align-items:center; justify-content:center; margin: 0 auto 1.5rem;">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--color-mustard-gold); font-weight:700; display:block; margin-bottom:0.5rem;">Private Client Authentication</span>
+        <h2 style="font-size:clamp(1.8rem, 3vw, 2.3rem); margin-bottom:1rem; color:var(--color-deep-charcoal);">Access Your Client Sanctuary</h2>
+        <p style="color:var(--color-warm-taupe); font-size:1rem; line-height:1.6; margin-bottom:2rem;">
+          Please sign in with your registered client email to view your active bespoke commission quotes, 3D room visualizer layouts, and residence specifications.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:0.85rem; max-width:380px; margin:0 auto;">
+          <button class="btn btn-gold btn-lg js-open-auth-btn" data-auth-mode="login" style="width:100%; justify-content:center;">
+            Sign In to Client Portal
+          </button>
+          <button class="btn btn-outline js-open-auth-btn" data-auth-mode="register" style="width:100%; justify-content:center;">
+            Register VIP Membership
+          </button>
+          <button id="portalDemoLoginBtn" type="button" class="auth-demo-btn" style="width:100%; margin-top:0.5rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            One-Click Demo VIP Access (Eleanor Vance)
+          </button>
+        </div>
+      </div>
+
+      <!-- Authenticated Client Portal Layout -->
+      <div id="portalAuthView" class="portal-layout" style="display:none;">
+
+        <!-- Left Sidebar: Client Profile & Navigation -->
+        <aside class="portal-sidebar-card">
+          <div class="portal-client-badge">
+            <div id="portalAvatarLarge" class="portal-avatar-large">EV</div>
+            <h3 id="portalClientName">Eleanor Vance</h3>
+            <span id="portalClientId" style="display:inline-block; margin-bottom:0.4rem;">JOY-CLIENT-1001</span>
+            <div style="margin-top:0.35rem;">
+              <span class="inquiry-status-pill review" style="font-size:0.7rem;">VIP Atelier Patron</span>
+            </div>
+          </div>
+
+          <nav class="portal-nav-list" role="tablist" aria-label="Client Portal Navigation">
+            <button class="portal-nav-btn is-active" data-portal-tab="overview" role="tab" aria-selected="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Sanctuary Overview</span>
+            </button>
+            <button class="portal-nav-btn" data-portal-tab="inquiries" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Inquiries & Quotes</span>
+              <span id="portalInquiryCountBadge" class="filter-count-badge" style="margin-left:auto; background:rgba(213,170,84,0.2); padding:0.15rem 0.5rem; border-radius:10px;">0</span>
+            </button>
+            <button class="portal-nav-btn" data-portal-tab="wishlist" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              <span>Curated Wishlist</span>
+              <span id="portalWishlistCountBadge" class="filter-count-badge" style="margin-left:auto; background:rgba(213,170,84,0.2); padding:0.15rem 0.5rem; border-radius:10px;">0</span>
+            </button>
+            <button class="portal-nav-btn" data-portal-tab="preferences" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Residence & Preferences</span>
+            </button>
+          </nav>
+
+          <!-- VIP Atelier Concierge Box -->
+          <div style="background-color:var(--color-sand-beige-light); padding:1.25rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle); margin-top:0.5rem;">
+            <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--color-mustard-gold-hover); font-weight:700; margin-bottom:0.35rem;">
+              Dedicated Concierge
+            </div>
+            <p style="font-size:0.82rem; color:var(--color-deep-charcoal); margin-bottom:0.75rem; line-height:1.4;">
+              Direct line to master atelier architects and interior curators.
+            </p>
+            <a id="portalWhatsAppDirect" href="https://wa.me/18005694663" class="btn btn-whatsapp btn-sm" style="width:100%; justify-content:center;" target="_blank" rel="noopener">
+              WhatsApp Concierge
+            </a>
+          </div>
+
+          <button class="btn btn-outline js-auth-logout" style="width:100%; justify-content:center; color:#b91c1c; border-color:rgba(185,28,28,0.3); font-size:0.85rem;">
+            Sign Out of Account
+          </button>
+        </aside>
+
+        <!-- Right Main Pane -->
+        <main class="portal-main-pane">
+
+          <!-- TAB 1: SANCTUARY OVERVIEW -->
+          <div id="portalTabOverview" class="portal-tab-content is-active">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:2rem; flex-wrap:wrap; gap:1rem;">
+              <div>
+                <span class="eyebrow" style="color:var(--color-mustard-gold);">Portfolio Status</span>
+                <h2 style="font-size:clamp(1.7rem, 2.5vw, 2.2rem); margin-bottom:0.25rem;">Welcome Back, <span id="portalGreetingName">Eleanor</span></h2>
+                <p style="color:var(--color-warm-taupe); font-size:0.95rem;">Review your interior project status, active inquiries, and curated design selections.</p>
+              </div>
+              <a href="catalog.html" class="btn btn-gold btn-sm">Explore Atelier Catalog</a>
+            </div>
+
+            <!-- Stats Ribbon -->
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
+              <div style="background:var(--color-sand-beige-light); padding:1.25rem 1.5rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--color-warm-taupe); font-weight:600; margin-bottom:0.35rem;">Active Inquiries</div>
+                <div id="portalStatInquiries" style="font-family:var(--font-serif); font-size:2.2rem; font-weight:700; color:var(--color-deep-charcoal);">0</div>
+                <div style="font-size:0.78rem; color:var(--color-mustard-gold-hover);">Tracked in atelier</div>
+              </div>
+
+              <div style="background:var(--color-sand-beige-light); padding:1.25rem 1.5rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--color-warm-taupe); font-weight:600; margin-bottom:0.35rem;">Saved Pieces</div>
+                <div id="portalStatWishlist" style="font-family:var(--font-serif); font-size:2.2rem; font-weight:700; color:var(--color-deep-charcoal);">0</div>
+                <div style="font-size:0.78rem; color:var(--color-mustard-gold-hover);">Ready for quote request</div>
+              </div>
+
+              <div style="background:var(--color-sand-beige-light); padding:1.25rem 1.5rem; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+                <div style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--color-warm-taupe); font-weight:600; margin-bottom:0.35rem;">Commission Lead Time</div>
+                <div style="font-family:var(--font-serif); font-size:2.2rem; font-weight:700; color:var(--color-deep-charcoal);">2–4 Wks</div>
+                <div style="font-size:0.78rem; color:var(--color-mustard-gold-hover);">White-glove priority</div>
+              </div>
+            </div>
+
+            <!-- Quick Access Portals -->
+            <h3 style="font-size:1.35rem; margin-bottom:1rem;">Atelier Studio Tools</h3>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; margin-bottom:2rem;">
+              <a href="studio.html" style="display:block; padding:1.5rem; background:var(--color-white); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); text-decoration:none; color:inherit; transition:transform 0.2s ease, border-color 0.2s ease;" onmouseover="this.style.borderColor='var(--color-mustard-gold)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border-subtle)'; this.style.transform='none';">
+                <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+                  <div style="width:36px; height:36px; border-radius:50%; background:rgba(213,170,84,0.15); display:flex; align-items:center; justify-content:center; color:var(--color-mustard-gold-hover);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                  </div>
+                  <h4 style="font-size:1.15rem; margin:0;">3D Room Visualizer</h4>
+                </div>
+                <p style="font-size:0.85rem; color:var(--color-warm-taupe); margin:0; line-height:1.5;">Arrange furniture pieces directly on floorplans to verify scale, clearance, and flow.</p>
+              </a>
+
+              <a href="contact.html?service=bespoke" style="display:block; padding:1.5rem; background:var(--color-white); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); text-decoration:none; color:inherit; transition:transform 0.2s ease, border-color 0.2s ease;" onmouseover="this.style.borderColor='var(--color-mustard-gold)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border-subtle)'; this.style.transform='none';">
+                <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+                  <div style="width:36px; height:36px; border-radius:50%; background:rgba(213,170,84,0.15); display:flex; align-items:center; justify-content:center; color:var(--color-mustard-gold-hover);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  </div>
+                  <h4 style="font-size:1.15rem; margin:0;">Bespoke Commission</h4>
+                </div>
+                <p style="font-size:0.85rem; color:var(--color-warm-taupe); margin:0; line-height:1.5;">Submit customized timber dimensions, stone selections, and exclusive fabric commissions.</p>
+              </a>
+            </div>
+
+            <!-- Client Scope Summary Box -->
+            <div style="background-color:rgba(214,197,173,0.15); border-left:4px solid var(--color-mustard-gold); padding:1.25rem 1.5rem; border-radius:2px;">
+              <h4 style="font-size:0.95rem; margin-bottom:0.35rem; color:var(--color-deep-charcoal);">Residence Styling Scope</h4>
+              <p id="portalScopeDisplay" style="font-size:0.88rem; color:var(--color-warm-taupe); margin:0;">
+                Master suite living room & outdoor sun deck furnishing.
+              </p>
+            </div>
+          </div>
+
+          <!-- TAB 2: INQUIRIES & QUOTES -->
+          <div id="portalTabInquiries" class="portal-tab-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+              <div>
+                <span class="eyebrow" style="color:var(--color-mustard-gold);">Communications Archive</span>
+                <h2 style="font-size:clamp(1.6rem, 2.5vw, 2rem); margin:0;">My Inquiries & Quotes</h2>
+              </div>
+              <a href="contact.html" class="btn btn-gold btn-sm">Initiate New Inquiry</a>
+            </div>
+
+            <p style="color:var(--color-warm-taupe); font-size:0.92rem; margin-bottom:1.5rem;">
+              Here are your formal project inquiries submitted to the JOY Design Concierge. Each request is actively tracked by our studio directors.
+            </p>
+
+            <div id="portalInquiriesList" style="display:flex; flex-direction:column; gap:1rem;">
+              <div style="text-align:center; padding:3rem; color:var(--color-warm-taupe);">
+                <div class="spinner-border" style="width:24px; height:24px; display:inline-block; margin-bottom:0.5rem;"></div>
+                <div>Retrieving client inquiries from studio records...</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: CURATED WISHLIST -->
+          <div id="portalTabWishlist" class="portal-tab-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+              <div>
+                <span class="eyebrow" style="color:var(--color-mustard-gold);">Selected Furnishings</span>
+                <h2 style="font-size:clamp(1.6rem, 2.5vw, 2rem); margin:0;">Curated Project Wishlist</h2>
+              </div>
+              <button id="portalSendQuoteWhatsApp" class="btn btn-whatsapp btn-sm">
+                Request Itemized Quote on WhatsApp
+              </button>
+            </div>
+
+            <p style="color:var(--color-warm-taupe); font-size:0.92rem; margin-bottom:1.5rem;">
+              Pieces you have bookmarked across our indoor and outdoor catalog. Request a consolidated quotation or customize finishes with our atelier.
+            </p>
+
+            <div id="portalWishlistContainer">
+              <!-- Dynamically populated from JoyWishlist -->
+            </div>
+          </div>
+
+          <!-- TAB 4: RESIDENCE & PREFERENCES FORM -->
+          <div id="portalTabPreferences" class="portal-tab-content">
+            <span class="eyebrow" style="color:var(--color-mustard-gold);">Client Profile Management</span>
+            <h2 style="font-size:clamp(1.6rem, 2.5vw, 2rem); margin-bottom:0.5rem;">Residence Details & Preferences</h2>
+            <p style="color:var(--color-warm-taupe); font-size:0.92rem; margin-bottom:2rem;">
+              Update your delivery location, residential design firm details, and project styling preferences for personalized service.
+            </p>
+
+            <div id="portalProfileAlert" class="auth-error-banner" style="display:none; margin-bottom:1.5rem;"></div>
+
+            <form id="portalProfileForm" novalidate>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="prefFullName" class="form-label">Full Name or Design Firm <span class="required">*</span></label>
+                  <input type="text" id="prefFullName" name="fullName" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="prefEmail" class="form-label">Client Email (Account ID)</label>
+                  <input type="email" id="prefEmail" name="email" class="form-control" readonly style="background-color:rgba(214,197,173,0.18); cursor:not-allowed;">
+                </div>
+
+                <div class="form-group">
+                  <label for="prefPhone" class="form-label">Direct Phone / Mobile <span class="required">*</span></label>
+                  <input type="tel" id="prefPhone" name="phone" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="prefClientType" class="form-label">Client Classification</label>
+                  <select id="prefClientType" name="clientType" class="form-control">
+                    <option value="Private Residence">Private Residence Client</option>
+                    <option value="Architectural / Interior Designer">Architectural / Interior Designer</option>
+                    <option value="Hospitality / Commercial">Hospitality / Commercial Developer</option>
+                    <option value="Curator / Collector">Private Collector / Curator</option>
+                  </select>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="prefStreet" class="form-label">Primary Residence / Delivery Street Address</label>
+                  <input type="text" id="prefStreet" name="street" class="form-control" placeholder="e.g. 742 Evergreen Terrace">
+                </div>
+
+                <div class="form-group">
+                  <label for="prefCity" class="form-label">City</label>
+                  <input type="text" id="prefCity" name="city" class="form-control" placeholder="e.g. Hudson Valley">
+                </div>
+
+                <div class="form-group">
+                  <label for="prefState" class="form-label">State / Province</label>
+                  <input type="text" id="prefState" name="state" class="form-control" placeholder="e.g. NY">
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="prefProjectScope" class="form-label">Residential Design Scope & Living Objectives</label>
+                  <textarea id="prefProjectScope" name="projectScope" class="form-control" rows="4" placeholder="Describe your rooms, outdoor spaces, preferred woods, stones, or seasonal timing..."></textarea>
+                </div>
+
+                <div class="form-group full-width" style="margin-top:1rem;">
+                  <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center;">
+                    Save Residence Profile & Preferences
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </main>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CURATED COLLECTION / WISHLIST SLIDE-OUT DRAWER
+       ========================================================================== -->
+  <div class="drawer-backdrop" role="dialog" aria-modal="true" aria-label="Curated Collection Drawer">
+    <div class="wishlist-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <h3>Curated Collection</h3>
+          <span>Selected Bespoke Furnishings</span>
+        </div>
+        <button class="drawer-close-btn" aria-label="Close Drawer">&times;</button>
+      </div>
+      <div class="drawer-content">
+        <!-- Rendered by JoyWishlist -->
+      </div>
+      <div class="drawer-footer">
+        <div class="drawer-subtotal-row">
+          <span class="drawer-subtotal-label">Estimated Investment</span>
+          <span class="drawer-subtotal-val">$0</span>
+        </div>
+        <button class="btn btn-gold btn-lg js-whatsapp-quote-btn" style="width:100%;">
+          Send Itemized Inquiry via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MOBILE APP BOTTOM NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="app-bottom-nav" aria-label="App Navigation">
+    <a href="index.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="catalog.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <span>Catalog</span>
+    </a>
+    <a href="studio.html" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+      <span>Studio</span>
+    </a>
+    <a href="#" class="bottom-nav-item js-open-wishlist">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      <span>Saved</span>
+    </a>
+    <a href="account.html" class="bottom-nav-item is-active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Portal</span>
+    </a>
+  </nav>
+
+  <!-- ==========================================================================
+       SHARED FOOTER
+       ========================================================================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <span class="brand-logo-text">JOY</span>
+            <span class="brand-logo-tagline">Luxury Furniture</span>
+          </a>
+          <p>
+            Timeless indoor and outdoor furniture crafted with architectural honesty, natural materials, and restorative comfort for discerning living spaces worldwide.
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4>Studio WebApp</h4>
+          <ul class="footer-links">
+            <li><a href="catalog.html">Catalog Studio</a></li>
+            <li><a href="studio.html">3D Room Visualizer</a></li>
+            <li><a href="#" class="js-open-wishlist">Curated Collection</a></li>
+            <li><a href="account.html">Client Portal & VIP</a></li>
+            <li><a href="services.html">Bespoke Commissions</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Brand Heritage</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="about.html#craftsmanship">Artisan Materials</a></li>
+            <li><a href="contact.html">Studio Showroom</a></li>
+            <li><a href="contact.html#faq">FAQ & Delivery</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Concierge Studio</h4>
+          <ul class="footer-contact-info">
+            <li><span>142 Horizon Boulevard, Design District, NY 10013</span></li>
+            <li><span>+1 (800) 569-4663</span></li>
+            <li><span>concierge@joyluxuryfurniture.com</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 JOY Luxury Furniture. All Rights Reserved.</div>
+        <div class="footer-legal-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="https://wa.me/18005694663" target="_blank" rel="noopener">WhatsApp Direct</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       CLIENT AUTHENTICATION / SIGN IN MODAL
+       ========================================================================== -->
+  <div id="authModal" class="auth-modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="authModalTitle">
+    <div class="auth-modal-container">
+      <div class="auth-modal-header">
+        <button class="auth-modal-close-btn js-close-auth-modal" aria-label="Close Authentication Modal">&times;</button>
+        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--color-mustard-gold); font-weight:600; display:block; margin-bottom:0.35rem;">JOY Private Client Services</span>
+        <h3 id="authModalTitle">Client Portal Access</h3>
+        <p>Sign in to manage commissions, bespoke room renderings, and curated quotes.</p>
+      </div>
+
+      <div class="auth-tabs-bar" role="tablist">
+        <button class="auth-tab-btn is-active" data-tab="login" role="tab" aria-selected="true" aria-controls="authFormPaneLogin">
+          Client Sign In
+        </button>
+        <button class="auth-tab-btn" data-tab="register" role="tab" aria-selected="false" aria-controls="authFormPaneRegister">
+          Register VIP Account
+        </button>
+      </div>
+
+      <div class="auth-modal-body">
+        <div id="authFormPaneLogin" class="auth-form-pane is-active" role="tabpanel">
+          <div id="authLoginError" class="auth-error-banner" role="alert"></div>
+
+          <form id="authLoginForm" novalidate>
+            <div class="auth-form-group">
+              <label for="authLoginEmail">Client Email</label>
+              <input type="email" id="authLoginEmail" name="email" class="auth-input" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+            </div>
+
+            <div class="auth-form-group">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label for="authLoginPassword">Passcode</label>
+                <a href="contact.html" style="font-size:0.75rem; color:var(--color-mustard-gold-hover); text-decoration:underline;">Forgot?</a>
+              </div>
+              <input type="password" id="authLoginPassword" name="password" class="auth-input" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center; margin-top:0.5rem;">
+              Sign In to Client Portal
+            </button>
+          </form>
+
+          <div style="text-align:center; margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--border-subtle);">
+            <span style="font-size:0.75rem; color:var(--color-warm-taupe); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:0.5rem;">Quick Evaluation Preview</span>
+            <button id="authDemoVipBtn" type="button" class="auth-demo-btn" style="width:100%;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              One-Click Demo VIP Access (Eleanor Vance)
+            </button>
+          </div>
+        </div>
+
+        <div id="authFormPaneRegister" class="auth-form-pane" role="tabpanel">
+          <div id="authRegisterError" class="auth-error-banner" role="alert"></div>
+
+          <form id="authRegisterForm" novalidate>
+            <div class="auth-form-group">
+              <label for="authRegName">Full Name / Design Firm <span class="required" style="color:var(--color-mustard-gold-hover);">*</span></label>
+              <input type="text" id="authRegName" name="fullName" class="auth-input" placeholder="e.g. Eleanor Vance or Vance Interiors" required autocomplete="name">
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegEmail">Client Email <span class="required" style="color:var(--color-mustard-gold-hover);">*</span></label>
+              <input type="email" id="authRegEmail" name="email" class="auth-input" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegPhone">Direct Telephone / Mobile</label>
+              <input type="tel" id="authRegPhone" name="phone" class="auth-input" placeholder="e.g. +1 (555) 234-5678" autocomplete="tel">
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegClientType">Client Type</label>
+              <select id="authRegClientType" name="clientType" class="auth-input">
+                <option value="Private Residence">Private Residence Client</option>
+                <option value="Architectural / Interior Designer">Architectural / Interior Designer</option>
+                <option value="Hospitality / Commercial">Hospitality / Commercial Developer</option>
+                <option value="Curator / Collector">Private Collector / Curator</option>
+              </select>
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegPass">Security Passcode (min. 6 characters) <span class="required" style="color:var(--color-mustard-gold-hover);">*</span></label>
+              <input type="password" id="authRegPass" name="password" class="auth-input" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center; margin-top:0.5rem;">
+              Register VIP Membership
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/webapp.js"></script>
+  <script>
+    // ========================================================================
+    // CLIENT PORTAL PAGE CONTROLLER
+    // ========================================================================
+    function renderAccountPortal() {
+      const user = window.joyAuth ? window.joyAuth.currentUser : null;
+      const guestView = document.getElementById('portalGuestView');
+      const authView = document.getElementById('portalAuthView');
+
+      if (!user) {
+        if (guestView) guestView.style.display = 'block';
+        if (authView) authView.style.display = 'none';
+        return;
+      }
+
+      if (guestView) guestView.style.display = 'none';
+      if (authView) authView.style.display = 'grid';
+
+      // Update Client Badge
+      const initials = user.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'VIP';
+      const firstName = user.fullName.split(' ')[0] || 'Client';
+
+      const avatarEl = document.getElementById('portalAvatarLarge');
+      const nameEl = document.getElementById('portalClientName');
+      const idEl = document.getElementById('portalClientId');
+      const greetingEl = document.getElementById('portalGreetingName');
+      const scopeEl = document.getElementById('portalScopeDisplay');
+      const waDirectEl = document.getElementById('portalWhatsAppDirect');
+
+      if (avatarEl) avatarEl.textContent = initials;
+      if (nameEl) nameEl.textContent = user.fullName;
+      if (idEl) idEl.textContent = user.id || 'JOY-VIP-CLIENT';
+      if (greetingEl) greetingEl.textContent = firstName;
+      if (scopeEl) scopeEl.textContent = user.projectScope || 'Residential interior & outdoor styling';
+
+      if (waDirectEl) {
+        const waMsg = encodeURIComponent(`Hello JOY Studio Concierge, I am client ${user.fullName} (${user.id || 'VIP'}). I would like to inquire regarding my bespoke commission.`);
+        waDirectEl.href = `https://wa.me/18005694663?text=${waMsg}`;
+      }
+
+      // Populate Preferences Form
+      const form = document.getElementById('portalProfileForm');
+      if (form) {
+        form.querySelector('[name="fullName"]').value = user.fullName || '';
+        form.querySelector('[name="email"]').value = user.email || '';
+        form.querySelector('[name="phone"]').value = user.phone || '';
+        if (user.clientType && form.querySelector('[name="clientType"]')) {
+          form.querySelector('[name="clientType"]').value = user.clientType;
+        }
+        if (user.address) {
+          form.querySelector('[name="street"]').value = user.address.street || '';
+          form.querySelector('[name="city"]').value = user.address.city || '';
+          form.querySelector('[name="state"]').value = user.address.state || '';
+        }
+        if (form.querySelector('[name="projectScope"]')) {
+          form.querySelector('[name="projectScope"]').value = user.projectScope || '';
+        }
+      }
+
+      // Populate Wishlist Tab
+      renderPortalWishlist();
+
+      // Fetch Inquiries from /api/inquiries
+      fetchPortalInquiries(user.email);
+    }
+
+    function renderPortalWishlist() {
+      const wishlist = window.joyWishlist ? window.joyWishlist.items : [];
+      const countBadge = document.getElementById('portalWishlistCountBadge');
+      const statBadge = document.getElementById('portalStatWishlist');
+      const container = document.getElementById('portalWishlistContainer');
+
+      if (countBadge) countBadge.textContent = wishlist.length;
+      if (statBadge) statBadge.textContent = wishlist.length;
+
+      if (!container) return;
+
+      if (wishlist.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:3rem; background:rgba(214,197,173,0.12); border-radius:var(--radius-sm); border:1px dashed var(--border-subtle);">
+            <svg style="width:40px; height:40px; color:var(--color-mustard-gold); margin-bottom:1rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <h4 style="margin-bottom:0.5rem;">Your Curated Wishlist is Currently Empty</h4>
+            <p style="color:var(--color-warm-taupe); font-size:0.9rem; margin-bottom:1.25rem;">Explore our signature living, outdoor, dining, and bedroom pieces to save your favorites.</p>
+            <a href="catalog.html" class="btn btn-gold btn-sm">Browse Signature Pieces</a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = `
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1.25rem;">
+          ${wishlist.map(item => `
+            <div style="background:var(--color-white); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); overflow:hidden; display:flex; flex-direction:column;">
+              <img src="${item.image}" alt="${item.title}" style="width:100%; height:180px; object-fit:cover;">
+              <div style="padding:1.25rem; display:flex; flex-direction:column; flex:1;">
+                <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--color-mustard-gold); font-weight:600; margin-bottom:0.25rem;">${item.category || 'Luxury Collection'}</div>
+                <h4 style="font-size:1.15rem; margin-bottom:0.35rem;">${item.title}</h4>
+                <div style="font-size:0.85rem; color:var(--color-warm-taupe); margin-bottom:0.5rem;">Finish: <strong>${item.finish}</strong> &bull; Qty: ${item.quantity}</div>
+                <div style="font-family:var(--font-serif); font-size:1.25rem; font-weight:700; color:var(--color-deep-charcoal); margin-top:auto; margin-bottom:0.85rem;">${item.priceStr}</div>
+                <div style="display:flex; gap:0.5rem;">
+                  <a href="https://wa.me/18005694663?text=${encodeURIComponent(`Inquiry regarding ${item.title} (${item.finish})`)}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm" style="flex:1; justify-content:center;">Inquire</a>
+                  <button onclick="window.joyWishlist.remove('${item.id}', '${item.finish}'); renderPortalWishlist();" class="btn btn-outline btn-sm" style="color:#b91c1c; border-color:rgba(185,28,28,0.25);">Remove</button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    async function fetchPortalInquiries(email) {
+      const container = document.getElementById('portalInquiriesList');
+      const statBadge = document.getElementById('portalStatInquiries');
+      const countBadge = document.getElementById('portalInquiryCountBadge');
+
+      try {
+        const res = await fetch(`/api/inquiries?email=${encodeURIComponent(email)}`);
+        const result = await res.json();
+        const inquiries = (result && result.data) ? result.data : [];
+
+        if (statBadge) statBadge.textContent = inquiries.length;
+        if (countBadge) countBadge.textContent = inquiries.length;
+
+        if (!container) return;
+
+        if (inquiries.length === 0) {
+          container.innerHTML = `
+            <div style="text-align:center; padding:3rem; background:rgba(214,197,173,0.12); border-radius:var(--radius-sm); border:1px dashed var(--border-subtle);">
+              <svg style="width:40px; height:40px; color:var(--color-mustard-gold); margin-bottom:1rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              <h4 style="margin-bottom:0.5rem;">No Inquiries Registered Yet</h4>
+              <p style="color:var(--color-warm-taupe); font-size:0.9rem; margin-bottom:1.25rem;">Initiate an enquiry to discuss floorplans, material finishes, or bespoke dimensions.</p>
+              <a href="contact.html" class="btn btn-gold btn-sm">Submit New Inquiry</a>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = inquiries.map(inq => {
+          const dateStr = inq.createdAt ? new Date(inq.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) : 'Recently';
+          return `
+            <div style="background:var(--color-white); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:1.5rem; display:flex; flex-direction:column; gap:0.75rem;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:0.5rem;">
+                <div>
+                  <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--color-mustard-gold); font-weight:700;">${inq.id || 'INQUIRY'}</span>
+                  <h4 style="font-size:1.2rem; margin:0.2rem 0;">${inq.subject || 'Bespoke Collection Consultation'}</h4>
+                  <div style="font-size:0.8rem; color:var(--color-warm-taupe);">Submitted on ${dateStr}</div>
+                </div>
+                <div>
+                  <span class="inquiry-status-pill review">${inq.status || 'Under Studio Review'}</span>
+                </div>
+              </div>
+              <p style="font-size:0.9rem; color:var(--color-deep-charcoal); line-height:1.5; margin:0; background:rgba(214,197,173,0.12); padding:0.85rem 1rem; border-radius:2px;">
+                "${inq.message || 'Consultation request logged.'}"
+              </p>
+              <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:0.25rem;">
+                <a href="https://wa.me/18005694663?text=${encodeURIComponent(`Follow-up inquiry regarding reference ${inq.id}`)}" target="_blank" rel="noopener" class="btn btn-whatsapp btn-sm">
+                  Follow Up on WhatsApp
+                </a>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        if (container) {
+          container.innerHTML = `
+            <div style="padding:2rem; background:#FFF5F5; border:1px solid #FECACA; border-radius:var(--radius-sm); color:#B91C1C; font-size:0.9rem;">
+              Unable to load studio inquiries at this time. Please contact concierge directly.
+            </div>
+          `;
+        }
+      }
+    }
+
+    // Portal Navigation Tabs Wiring
+    document.addEventListener('DOMContentLoaded', () => {
+      window.renderAccountPortal = renderAccountPortal;
+
+      // Handle tab switching
+      const tabBtns = document.querySelectorAll('.portal-nav-btn');
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTab = btn.getAttribute('data-portal-tab');
+          tabBtns.forEach(b => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-selected', 'true');
+
+          document.querySelectorAll('.portal-tab-content').forEach(p => p.classList.remove('is-active'));
+          const targetPane = document.getElementById(`portalTab${targetTab.charAt(0).toUpperCase() + targetTab.slice(1)}`);
+          if (targetPane) targetPane.classList.add('is-active');
+
+          if (targetTab === 'wishlist') renderPortalWishlist();
+          if (targetTab === 'inquiries' && window.joyAuth && window.joyAuth.currentUser) {
+            fetchPortalInquiries(window.joyAuth.currentUser.email);
+          }
+        });
+      });
+
+      // Quick Demo VIP Button in Guest View
+      const guestDemoBtn = document.getElementById('portalDemoLoginBtn');
+      if (guestDemoBtn) {
+        guestDemoBtn.addEventListener('click', () => {
+          if (window.joyAuth) window.joyAuth.loginAsDemoVIP();
+        });
+      }
+
+      // Profile Form Submission (PUT /api/auth?action=profile)
+      const profileForm = document.getElementById('portalProfileForm');
+      if (profileForm) {
+        profileForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const alertEl = document.getElementById('portalProfileAlert');
+          const submitBtn = profileForm.querySelector('button[type="submit"]');
+
+          const payload = {
+            email: profileForm.querySelector('[name="email"]').value,
+            fullName: profileForm.querySelector('[name="fullName"]').value.trim(),
+            phone: profileForm.querySelector('[name="phone"]').value.trim(),
+            clientType: profileForm.querySelector('[name="clientType"]').value,
+            projectScope: profileForm.querySelector('[name="projectScope"]').value.trim(),
+            address: {
+              street: profileForm.querySelector('[name="street"]').value.trim(),
+              city: profileForm.querySelector('[name="city"]').value.trim(),
+              state: profileForm.querySelector('[name="state"]').value.trim()
+            }
+          };
+
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Updating Profile...';
+          }
+
+          try {
+            const res = await fetch('/api/auth?action=profile', {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || 'Update failed');
+
+            if (window.joyAuth) {
+              window.joyAuth.saveSession(data.user, window.joyAuth.token);
+            }
+            if (alertEl) {
+              alertEl.style.display = 'block';
+              alertEl.style.backgroundColor = '#ECFDF5';
+              alertEl.style.borderColor = '#A7F3D0';
+              alertEl.style.color = '#065F46';
+              alertEl.textContent = 'Client residence profile and design scope updated successfully.';
+              setTimeout(() => alertEl.style.display = 'none', 4000);
+            }
+            renderAccountPortal();
+          } catch (err) {
+            if (alertEl) {
+              alertEl.style.display = 'block';
+              alertEl.style.backgroundColor = '#FFF5F5';
+              alertEl.style.borderColor = '#FECACA';
+              alertEl.style.color = '#B91C1C';
+              alertEl.textContent = err.message;
+            }
+          } finally {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Save Residence Profile & Preferences';
+            }
+          }
+        });
+      }
+
+      // Consolidated Quote to WhatsApp
+      const sendQuoteBtn = document.getElementById('portalSendQuoteWhatsApp');
+      if (sendQuoteBtn) {
+        sendQuoteBtn.addEventListener('click', () => {
+          const items = window.joyWishlist ? window.joyWishlist.items : [];
+          if (items.length === 0) {
+            alert('Your wishlist is empty. Please select furniture pieces to request a quotation.');
+            return;
+          }
+          let text = `Hello JOY Concierge,%0A%0AI would like to request a formal quotation for my curated furniture selections:%0A`;
+          items.forEach((item, idx) => {
+            text += `%0A${idx + 1}. *${encodeURIComponent(item.title)}*%0A   - Finish: ${encodeURIComponent(item.finish)}%0A   - Quantity: ${item.quantity}%0A   - Price: ${encodeURIComponent(item.priceStr)}%0A`;
+          });
+          const total = window.joyWishlist.getTotal();
+          text += `%0A*Estimated Total: $${total.toLocaleString()}*%0A%0APlease advise on availability and white-glove delivery schedule.`;
+          window.open(`https://wa.me/18005694663?text=${text}`, '_blank');
+        });
+      }
+
+      // Check URL hash for direct tab linking (e.g. account.html#inquiries)
+      if (window.location.hash) {
+        const hashTab = window.location.hash.replace('#', '');
+        const targetBtn = document.querySelector(`.portal-nav-btn[data-portal-tab="${hashTab}"]`);
+        if (targetBtn) targetBtn.click();
+      }
+
+      // Initial render
+      setTimeout(renderAccountPortal, 100);
+    });
+  </script>
+</body>
+</html>
