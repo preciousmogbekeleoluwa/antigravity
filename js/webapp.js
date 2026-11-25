@@ -287,7 +287,11 @@ class JoyWishlist {
     const whatsappBtn = document.querySelector('.js-wishlist-whatsapp');
     if (whatsappBtn) {
       whatsappBtn.addEventListener('click', (e) => {
-        if (this.items.length === 0) return;
+        if (this.items.length === 0) {
+          e.preventDefault();
+          alert('Your curated collection is empty. Please select furniture pieces to request an itemized quotation.');
+          return;
+        }
         const phone = '18005694663';
         let text = `Hello JOY Luxury Furniture Concierge,\n\nI have curated the following pieces from your collection for my space:\n\n`;
         this.items.forEach((item, idx) => {
@@ -784,6 +788,7 @@ class JoyRoomStudio {
     if (sendBtn) {
       sendBtn.addEventListener('click', (e) => {
         if (this.placedItems.length === 0) {
+          e.preventDefault();
           alert('Please add at least one furniture piece to your room concept.');
           return;
         }
@@ -1069,6 +1074,7 @@ class JoyAuth {
     this.loadSession();
     this.bindEvents();
     this.renderHeaderAuth();
+    this.renderOnPageAuth();
   }
 
   loadSession() {
@@ -1094,6 +1100,7 @@ class JoyAuth {
     } catch (e) {}
     window.dispatchEvent(new CustomEvent('joy-auth-changed', { detail: { user } }));
     this.renderHeaderAuth();
+    this.renderOnPageAuth();
     this.prefillContactForms();
   }
 
@@ -1106,6 +1113,7 @@ class JoyAuth {
     this.token = null;
     window.dispatchEvent(new CustomEvent('joy-auth-changed', { detail: { user: null } }));
     this.renderHeaderAuth();
+    this.renderOnPageAuth();
     if (window.location.pathname.includes('account.html')) {
       window.location.href = 'index.html';
     } else {
@@ -1153,7 +1161,7 @@ class JoyAuth {
     const form = e.target;
     const email = (form.querySelector('[name="email"]')?.value || '').trim();
     const password = (form.querySelector('[name="password"]')?.value || '').trim();
-    const errorEl = document.querySelector('#authLoginError');
+    const errorEl = form.querySelector('.auth-error-banner') || form.closest('.home-auth-pane')?.querySelector('.auth-error-banner') || document.querySelector('#authLoginError');
     const submitBtn = form.querySelector('button[type="submit"]');
 
     if (!email || !password) {
@@ -1200,7 +1208,7 @@ class JoyAuth {
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Sign In to Client Portal';
+        submitBtn.textContent = 'Sign In to Client Account';
       }
     }
   }
@@ -1213,7 +1221,7 @@ class JoyAuth {
     const phone = (form.querySelector('[name="phone"]')?.value || '').trim();
     const clientType = form.querySelector('[name="clientType"]')?.value || 'Private Residence';
     const password = (form.querySelector('[name="password"]')?.value || '').trim();
-    const errorEl = document.querySelector('#authRegisterError');
+    const errorEl = form.querySelector('.auth-error-banner') || form.closest('.home-auth-pane')?.querySelector('.auth-error-banner') || document.querySelector('#authRegisterError');
     const submitBtn = form.querySelector('button[type="submit"]');
 
     if (!fullName || !email || !password) {
@@ -1260,21 +1268,52 @@ class JoyAuth {
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Register VIP Membership';
+        submitBtn.textContent = 'Submit Details & Register VIP Access';
       }
     }
   }
 
   loginAsDemoVIP() {
-    const emailInput = document.querySelector('#authLoginForm [name="email"]');
-    const passInput = document.querySelector('#authLoginForm [name="password"]');
-    if (emailInput && passInput) {
-      emailInput.value = 'eleanor@vance-residence.com';
-      passInput.value = 'password123';
-      const form = document.querySelector('#authLoginForm');
+    const emailInputs = [
+      document.querySelector('#homeLoginForm [name="email"]'),
+      document.querySelector('#authLoginForm [name="email"]')
+    ].filter(Boolean);
+
+    const passInputs = [
+      document.querySelector('#homeLoginForm [name="password"]'),
+      document.querySelector('#authLoginForm [name="password"]')
+    ].filter(Boolean);
+
+    if (emailInputs.length > 0 && passInputs.length > 0) {
+      emailInputs[0].value = 'eleanor@vance-residence.com';
+      passInputs[0].value = 'password123';
+      const form = emailInputs[0].closest('form');
       if (form) {
         form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
       }
+    }
+  }
+
+  renderOnPageAuth() {
+    const signedOutEl = document.getElementById('homeAuthSignedOut');
+    const signedInEl = document.getElementById('homeAuthSignedIn');
+    if (!signedOutEl || !signedInEl) return;
+
+    if (this.currentUser) {
+      signedOutEl.style.display = 'none';
+      signedInEl.style.display = 'block';
+
+      const avatarEl = document.getElementById('homeClientAvatar');
+      const nameEl = document.getElementById('homeClientFullName');
+      const idEl = document.getElementById('homeClientIdBadge');
+
+      const initials = this.currentUser.fullName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'VIP';
+      if (avatarEl) avatarEl.textContent = initials;
+      if (nameEl) nameEl.textContent = this.currentUser.fullName;
+      if (idEl) idEl.textContent = this.currentUser.id || 'JOY-CLIENT-1001';
+    } else {
+      signedOutEl.style.display = 'block';
+      signedInEl.style.display = 'none';
     }
   }
 
@@ -1407,6 +1446,40 @@ class JoyAuth {
 
     const registerForm = document.querySelector('#authRegisterForm');
     if (registerForm) registerForm.addEventListener('submit', (e) => this.handleRegister(e));
+
+    // On-Page Homepage Client Portal Forms
+    const homeRegForm = document.getElementById('homeRegisterForm');
+    if (homeRegForm) homeRegForm.addEventListener('submit', (e) => this.handleRegister(e));
+
+    const homeLogForm = document.getElementById('homeLoginForm');
+    if (homeLogForm) homeLogForm.addEventListener('submit', (e) => this.handleLogin(e));
+
+    // On-Page Tabs Switcher
+    const homeTabBtns = document.querySelectorAll('.home-auth-tab-btn');
+    homeTabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.dataset.homeTab;
+        homeTabBtns.forEach(b => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const paneReg = document.getElementById('homeAuthPaneRegister');
+        const paneLog = document.getElementById('homeAuthPaneLogin');
+        if (paneReg && paneLog) {
+          paneReg.classList.toggle('is-active', target === 'register');
+          paneLog.classList.toggle('is-active', target === 'login');
+        }
+      });
+    });
+
+    // On-Page Demo Access Buttons
+    const demoHome1 = document.getElementById('homeDemoAccessBtn');
+    const demoHome2 = document.getElementById('homeDemoAccessBtn2');
+    if (demoHome1) demoHome1.addEventListener('click', () => this.loginAsDemoVIP());
+    if (demoHome2) demoHome2.addEventListener('click', () => this.loginAsDemoVIP());
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') this.closeModal();

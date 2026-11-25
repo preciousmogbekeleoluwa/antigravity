@@ -596,6 +596,175 @@
   </section>
 
   <!-- ==========================================================================
+       SECTION H: PRIVATE CLIENT PORTAL & SIGN IN SANCTUARY (ON-PAGE)
+       ========================================================================== -->
+  <section class="section section-client-portal-home" id="client-sanctuary">
+    <div class="container">
+      <div class="client-portal-home-card">
+        
+        <!-- Left Editorial Intro Pane -->
+        <div class="client-portal-intro-pane">
+          <span class="eyebrow" style="color:var(--color-mustard-gold);">Private Client Services</span>
+          <h2 style="color:var(--color-warm-ivory); margin-bottom:1rem; font-size:clamp(1.9rem, 3vw, 2.6rem);">
+            Your Personal Atelier Sanctuary.
+          </h2>
+          <p style="color:rgba(243,239,231,0.85); font-size:0.98rem; line-height:1.7; margin-bottom:1.75rem;">
+            Fill in your details below to sign in or register for VIP Atelier Privileges. Enjoy tailored residential quotes, white-glove delivery tracking, and direct consultation with our master curators.
+          </p>
+
+          <div class="client-portal-perks">
+            <div class="portal-perk-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>Complimentary White-Glove Installation on Bespoke Commissions</span>
+            </div>
+            <div class="portal-perk-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <span>Save & Share 3D Room Studio Spatial Canvas Layouts</span>
+            </div>
+            <div class="portal-perk-item">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Direct Mobile Line to Studio Design Concierge on WhatsApp</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Interactive Client Form Pane -->
+        <div class="client-portal-form-pane">
+          
+          <!-- When Signed Out: Fill Details & Sign In Forms -->
+          <div id="homeAuthSignedOut">
+            <div class="home-auth-tabs" role="tablist">
+              <button type="button" class="home-auth-tab-btn is-active" data-home-tab="register" role="tab" aria-selected="true">
+                Fill Details / Register
+              </button>
+              <button type="button" class="home-auth-tab-btn" data-home-tab="login" role="tab" aria-selected="false">
+                Client Sign In
+              </button>
+            </div>
+
+            <!-- Tab 1: Fill Details & Register -->
+            <div id="homeAuthPaneRegister" class="home-auth-pane is-active">
+              <div class="auth-error-banner" style="display:none;" role="alert"></div>
+
+              <form id="homeRegisterForm" novalidate>
+                <div class="form-grid">
+                  <div class="form-group full-width">
+                    <label for="homeRegName" class="form-label">Full Legal Name or Design Firm <span class="required">*</span></label>
+                    <input type="text" id="homeRegName" name="fullName" class="form-control" placeholder="e.g. Eleanor Vance" required autocomplete="name">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="homeRegEmail" class="form-label">Client Email Address <span class="required">*</span></label>
+                    <input type="email" id="homeRegEmail" name="email" class="form-control" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="homeRegPhone" class="form-label">Phone / Mobile Number <span class="required">*</span></label>
+                    <input type="tel" id="homeRegPhone" name="phone" class="form-control" placeholder="e.g. +1 (555) 234-5678" required autocomplete="tel">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="homeRegClientType" class="form-label">Client Classification</label>
+                    <select id="homeRegClientType" name="clientType" class="form-control">
+                      <option value="Private Residence">Private Residence Client</option>
+                      <option value="Architectural / Interior Designer">Architectural / Interior Designer</option>
+                      <option value="Hospitality / Commercial">Hospitality / Commercial Developer</option>
+                      <option value="Curator / Collector">Private Collector / Curator</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="homeRegPass" class="form-label">Security Passcode <span class="required">*</span></label>
+                    <input type="password" id="homeRegPass" name="password" class="form-control" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+                  </div>
+
+                  <div class="form-group full-width" style="margin-top:0.35rem;">
+                    <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center;">
+                      Submit Details & Access Client Portal
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <div style="text-align:center; margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed var(--border-subtle);">
+                <button type="button" id="homeDemoAccessBtn" class="auth-demo-btn" style="width:100%;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  One-Click Demo VIP Access (Eleanor Vance)
+                </button>
+              </div>
+            </div>
+
+            <!-- Tab 2: Sign In -->
+            <div id="homeAuthPaneLogin" class="home-auth-pane">
+              <div class="auth-error-banner" style="display:none;" role="alert"></div>
+
+              <form id="homeLoginForm" novalidate>
+                <div class="form-grid">
+                  <div class="form-group full-width">
+                    <label for="homeLoginEmail" class="form-label">Client Email <span class="required">*</span></label>
+                    <input type="email" id="homeLoginEmail" name="email" class="form-control" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+                  </div>
+
+                  <div class="form-group full-width">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                      <label for="homeLoginPass" class="form-label">Security Passcode <span class="required">*</span></label>
+                      <a href="contact.html" style="font-size:0.75rem; color:var(--color-mustard-gold-hover); text-decoration:underline;">Forgot?</a>
+                    </div>
+                    <input type="password" id="homeLoginPass" name="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                  </div>
+
+                  <div class="form-group full-width" style="margin-top:0.35rem;">
+                    <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center;">
+                      Sign In to Client Account
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <div style="text-align:center; margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed var(--border-subtle);">
+                <button type="button" id="homeDemoAccessBtn2" class="auth-demo-btn" style="width:100%;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  One-Click Demo VIP Access (Eleanor Vance)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- When Signed In: Active Client Sanctuary Card -->
+          <div id="homeAuthSignedIn" style="display:none;">
+            <div style="display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border-subtle);">
+              <div id="homeClientAvatar" class="portal-avatar-large" style="width:60px; height:60px; font-size:1.5rem; margin:0;">EV</div>
+              <div>
+                <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em; color:var(--color-mustard-gold-hover); font-weight:700;">Active VIP Client Session</span>
+                <h3 id="homeClientFullName" style="font-size:1.4rem; margin:0.15rem 0;">Eleanor Vance</h3>
+                <span id="homeClientIdBadge" style="font-size:0.8rem; color:var(--color-warm-taupe); font-weight:600;">JOY-CLIENT-1001</span>
+              </div>
+            </div>
+
+            <p style="font-size:0.92rem; color:var(--color-deep-charcoal); line-height:1.6; margin-bottom:1.5rem;">
+              You are signed in to JOY Private Client Services. Your bespoke project details, room layouts, and quotes are ready in your portal.
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:0.75rem;">
+              <a href="account.html" class="btn btn-gold btn-lg" style="width:100%; justify-content:center;">
+                Open Full Client Portal & Portfolio
+              </a>
+              <a href="studio.html" class="btn btn-outline" style="width:100%; justify-content:center;">
+                Launch 3D Room Studio Visualizer
+              </a>
+              <button type="button" class="btn btn-outline js-auth-logout" style="width:100%; justify-content:center; color:#b91c1c; border-color:rgba(185,28,28,0.3);">
+                Sign Out
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
        SECTION H: FINAL CTA BANNER
        ========================================================================== -->
   <section class="cta-banner" aria-label="Begin Your Project">

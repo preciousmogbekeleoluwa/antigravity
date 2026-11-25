@@ -2136,6 +2136,35 @@ textarea.form-control {
   }
 }
 
+@media (max-width: 480px) {
+  .btn {
+    white-space: normal;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.82rem;
+    text-align: center;
+    line-height: 1.35;
+  }
+  .btn-sm {
+    padding: 0.65rem 1.1rem;
+    font-size: 0.74rem;
+  }
+  .product-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  .product-actions .btn {
+    width: 100%;
+  }
+  .product-filter-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+  }
+}
+
 /* Reduced Motion Accessibility */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
