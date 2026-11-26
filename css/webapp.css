@@ -1269,11 +1269,12 @@
   background-color: var(--color-warm-ivory);
   width: 100%;
   max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
   border-radius: var(--radius-sm);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
   border: 1px solid var(--border-subtle);
   position: relative;
-  overflow: hidden;
   transform: translateY(20px) scale(0.98);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }

@@ -1220,13 +1220,17 @@ class JoyAuth {
     const email = (form.querySelector('[name="email"]')?.value || '').trim();
     const phone = (form.querySelector('[name="phone"]')?.value || '').trim();
     const clientType = form.querySelector('[name="clientType"]')?.value || 'Private Residence';
+    const street = (form.querySelector('[name="street"]')?.value || '').trim();
+    const city = (form.querySelector('[name="city"]')?.value || '').trim();
+    const state = (form.querySelector('[name="state"]')?.value || '').trim();
+    const zip = (form.querySelector('[name="zip"]')?.value || '').trim();
     const password = (form.querySelector('[name="password"]')?.value || '').trim();
     const errorEl = form.querySelector('.auth-error-banner') || form.closest('.home-auth-pane')?.querySelector('.auth-error-banner') || document.querySelector('#authRegisterError');
     const submitBtn = form.querySelector('button[type="submit"]');
 
     if (!fullName || !email || !password) {
       if (errorEl) {
-        errorEl.textContent = 'Please complete all required fields.';
+        errorEl.textContent = 'Please complete all required fields (Name, Email, Passcode).';
         errorEl.style.display = 'block';
       }
       return;
@@ -1247,7 +1251,14 @@ class JoyAuth {
       const res = await fetch('/api/auth?action=register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ fullName, email, phone, clientType, password })
+        body: JSON.stringify({
+          fullName,
+          email,
+          phone,
+          clientType,
+          password,
+          address: { street, city, state, zip }
+        })
       });
       const data = await res.json();
       if (!res.ok) {

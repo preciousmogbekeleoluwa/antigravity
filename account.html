@@ -109,32 +109,139 @@
   <section class="section" style="padding-top: 3rem; background-color: var(--color-warm-ivory);">
     <div class="container">
 
-      <!-- Guest / Not Logged In View -->
-      <div id="portalGuestView" style="display:none; text-align:center; max-width:650px; margin: 2rem auto; padding: 3.5rem 2rem; background: var(--color-white); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); box-shadow: 0 10px 30px rgba(0,0,0,0.04);">
-        <div style="width:68px; height:68px; border-radius:50%; background:rgba(213,170,84,0.15); color:var(--color-mustard-gold-hover); display:flex; align-items:center; justify-content:center; margin: 0 auto 1.5rem;">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
+      <!-- Guest / Not Logged In View: Inline On-Page Registration & Sign-In Form -->
+      <div id="portalGuestView" style="display:none; max-width:780px; margin: 1.5rem auto 3rem; background: var(--color-white); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); box-shadow: 0 15px 45px rgba(52, 54, 48, 0.08); overflow: hidden;">
+        
+        <div style="background-color:var(--color-deep-charcoal); color:var(--color-warm-ivory); padding: 2.5rem 2.5rem 2rem; text-align:center;">
+          <div style="width:64px; height:64px; border-radius:50%; background:rgba(213,170,84,0.18); color:var(--color-mustard-gold); display:flex; align-items:center; justify-content:center; margin: 0 auto 1.25rem;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--color-mustard-gold); font-weight:700; display:block; margin-bottom:0.4rem;">JOY Private Client Services</span>
+          <h2 style="font-size:clamp(1.8rem, 2.8vw, 2.3rem); margin-bottom:0.5rem; color:var(--color-warm-ivory);">Client Sanctuary Registration</h2>
+          <p style="color:rgba(243,239,231,0.85); font-size:0.95rem; line-height:1.6; max-width:580px; margin:0 auto;">
+            Please fill in your name, contact, and residential address details below to create your private account, or sign in to access your bespoke commission quotes and 3D studio plans.
+          </p>
         </div>
-        <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.18em; color:var(--color-mustard-gold); font-weight:700; display:block; margin-bottom:0.5rem;">Private Client Authentication</span>
-        <h2 style="font-size:clamp(1.8rem, 3vw, 2.3rem); margin-bottom:1rem; color:var(--color-deep-charcoal);">Access Your Client Sanctuary</h2>
-        <p style="color:var(--color-warm-taupe); font-size:1rem; line-height:1.6; margin-bottom:2rem;">
-          Please sign in with your registered client email to view your active bespoke commission quotes, 3D room visualizer layouts, and residence specifications.
-        </p>
 
-        <div style="display:flex; flex-direction:column; gap:0.85rem; max-width:380px; margin:0 auto;">
-          <button class="btn btn-gold btn-lg js-open-auth-btn" data-auth-mode="login" style="width:100%; justify-content:center;">
-            Sign In to Client Portal
-          </button>
-          <button class="btn btn-outline js-open-auth-btn" data-auth-mode="register" style="width:100%; justify-content:center;">
-            Register VIP Membership
-          </button>
-          <button id="portalDemoLoginBtn" type="button" class="auth-demo-btn" style="width:100%; margin-top:0.5rem;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-            One-Click Demo VIP Access (Eleanor Vance)
-          </button>
+        <div style="padding: clamp(1.75rem, 4vw, 2.75rem);">
+          <!-- Tabs: Register (Fill Details) vs Sign In -->
+          <div class="home-auth-tabs" role="tablist" style="margin-bottom:1.75rem;">
+            <button type="button" class="home-auth-tab-btn is-active" data-home-tab="register" role="tab" aria-selected="true">
+              Fill Details / Register VIP Account
+            </button>
+            <button type="button" class="home-auth-tab-btn" data-home-tab="login" role="tab" aria-selected="false">
+              Sign In to Existing Account
+            </button>
+          </div>
+
+          <!-- Tab 1: Fill Details & Register -->
+          <div id="homeAuthPaneRegister" class="home-auth-pane is-active">
+            <div class="auth-error-banner" style="display:none;" role="alert"></div>
+
+            <form id="homeRegisterForm" novalidate>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label for="accRegName" class="form-label">Full Name or Design Firm <span class="required">*</span></label>
+                  <input type="text" id="accRegName" name="fullName" class="form-control" placeholder="e.g. Eleanor Vance or Vance Interiors" required autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                  <label for="accRegEmail" class="form-label">Client Email Address <span class="required">*</span></label>
+                  <input type="email" id="accRegEmail" name="email" class="form-control" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                  <label for="accRegPhone" class="form-label">Phone / Mobile Number <span class="required">*</span></label>
+                  <input type="tel" id="accRegPhone" name="phone" class="form-control" placeholder="e.g. +1 (555) 234-5678" required autocomplete="tel">
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="accRegStreet" class="form-label">Delivery / Residential Street Address</label>
+                  <input type="text" id="accRegStreet" name="street" class="form-control" placeholder="e.g. 742 Evergreen Terrace, Horizon District">
+                </div>
+
+                <div class="form-group">
+                  <label for="accRegCity" class="form-label">City</label>
+                  <input type="text" id="accRegCity" name="city" class="form-control" placeholder="e.g. Hudson Valley">
+                </div>
+
+                <div class="form-group">
+                  <label for="accRegState" class="form-label">State / Province & Postal Code</label>
+                  <input type="text" id="accRegState" name="state" class="form-control" placeholder="e.g. NY 12534">
+                </div>
+
+                <div class="form-group">
+                  <label for="accRegClientType" class="form-label">Client Classification</label>
+                  <select id="accRegClientType" name="clientType" class="form-control">
+                    <option value="Private Residence">Private Residence Client</option>
+                    <option value="Architectural / Interior Designer">Architectural / Interior Designer</option>
+                    <option value="Hospitality / Commercial">Hospitality / Commercial Developer</option>
+                    <option value="Curator / Collector">Private Collector / Curator</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="accRegPass" class="form-label">Security Passcode (min. 6 characters) <span class="required">*</span></label>
+                  <input type="password" id="accRegPass" name="password" class="form-control" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+                </div>
+
+                <div class="form-group full-width" style="margin-top:0.5rem;">
+                  <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center;">
+                    Register VIP Membership & Enter Sanctuary
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <div style="text-align:center; margin-top:1.25rem; padding-top:1rem; border-top:1px dashed var(--border-subtle);">
+              <span style="font-size:0.75rem; color:var(--color-warm-taupe); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:0.5rem;">Quick Evaluation Demo</span>
+              <button id="portalDemoLoginBtn" type="button" class="auth-demo-btn" style="width:100%;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                One-Click Demo VIP Access (Eleanor Vance)
+              </button>
+            </div>
+          </div>
+
+          <!-- Tab 2: Sign In -->
+          <div id="homeAuthPaneLogin" class="home-auth-pane">
+            <div class="auth-error-banner" style="display:none;" role="alert"></div>
+
+            <form id="homeLoginForm" novalidate>
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label for="accLoginEmail" class="form-label">Registered Client Email <span class="required">*</span></label>
+                  <input type="email" id="accLoginEmail" name="email" class="form-control" placeholder="e.g. eleanor@vance-residence.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group full-width">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <label for="accLoginPass" class="form-label">Security Passcode <span class="required">*</span></label>
+                    <a href="contact.html" style="font-size:0.75rem; color:var(--color-mustard-gold-hover); text-decoration:underline;">Forgot passcode?</a>
+                  </div>
+                  <input type="password" id="accLoginPass" name="password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <div class="form-group full-width" style="margin-top:0.5rem;">
+                  <button type="submit" class="btn btn-gold btn-lg" style="width:100%; justify-content:center;">
+                    Sign In to Client Account
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <div style="text-align:center; margin-top:1.25rem; padding-top:1rem; border-top:1px dashed var(--border-subtle);">
+              <span style="font-size:0.75rem; color:var(--color-warm-taupe); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:0.5rem;">Quick Evaluation Demo</span>
+              <button type="button" class="auth-demo-btn" onclick="window.joyAuth && window.joyAuth.loginAsDemoVIP()" style="width:100%;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                One-Click Demo VIP Access (Eleanor Vance)
+              </button>
+            </div>
+          </div>
         </div>
+
       </div>
 
       <!-- Authenticated Client Portal Layout -->
@@ -550,6 +657,22 @@
             <div class="auth-form-group">
               <label for="authRegPhone">Direct Telephone / Mobile</label>
               <input type="tel" id="authRegPhone" name="phone" class="auth-input" placeholder="e.g. +1 (555) 234-5678" autocomplete="tel">
+            </div>
+
+            <div class="auth-form-group">
+              <label for="authRegStreet">Residential / Delivery Address</label>
+              <input type="text" id="authRegStreet" name="street" class="auth-input" placeholder="e.g. 742 Evergreen Terrace">
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;">
+              <div class="auth-form-group">
+                <label for="authRegCity">City</label>
+                <input type="text" id="authRegCity" name="city" class="auth-input" placeholder="e.g. Hudson Valley">
+              </div>
+              <div class="auth-form-group">
+                <label for="authRegState">State / ZIP</label>
+                <input type="text" id="authRegState" name="state" class="auth-input" placeholder="e.g. NY 12534">
+              </div>
             </div>
 
             <div class="auth-form-group">

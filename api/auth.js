@@ -82,6 +82,13 @@ module.exports = function handler(req, res) {
       return;
     }
 
+    const address = {
+      street: (body.street || (body.address && body.address.street) || '').trim(),
+      city: (body.city || (body.address && body.address.city) || '').trim(),
+      state: (body.state || (body.address && body.address.state) || '').trim(),
+      zip: (body.zip || (body.address && body.address.zip) || '').trim()
+    };
+
     const clientId = `JOY-CLIENT-${Math.floor(1000 + Math.random() * 9000)}`;
     const newUser = {
       id: clientId,
@@ -91,7 +98,7 @@ module.exports = function handler(req, res) {
       password: password,
       clientType: clientType,
       createdAt: new Date().toISOString(),
-      address: body.address || { street: '', city: '', state: '', zip: '' },
+      address: address,
       projectScope: body.projectScope || 'Residential interior & outdoor styling'
     };
 

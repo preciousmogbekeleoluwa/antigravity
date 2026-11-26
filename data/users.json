@@ -14,5 +14,21 @@
       "zip": "12534"
     },
     "projectScope": "Master suite living room & outdoor sun deck furnishing"
+  },
+  {
+    "id": "JOY-CLIENT-4834",
+    "fullName": "Lady Genevieve DuPont",
+    "email": "genevieve@dupont-estates.com",
+    "phone": "+1 (555) 789-0123",
+    "password": "securePasscode123",
+    "clientType": "Private Residence",
+    "createdAt": "2026-11-26T00:03:40.014Z",
+    "address": {
+      "street": "18 Belvedere Terrace",
+      "city": "Aspen",
+      "state": "CO 81611",
+      "zip": ""
+    },
+    "projectScope": "Residential interior & outdoor styling"
   }
 ]
